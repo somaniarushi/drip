@@ -72,7 +72,7 @@ def describe():
         'complete': False,
     }
 
-    parts = fullbody['is'] + top['is'] + bottom['is'] + ['shoes', 'jewelry', 'accessories']
+    parts = fullbody['is'] + top['is'] + bottom['is'] + ['shoes', 'jewelry', 'hat', 'tie', 'jacket']
 
     def check_necessary(part):
         if fullbody['complete'] and (part in fullbody['is'] or part in top['is'] or part in bottom['is']):
@@ -100,7 +100,7 @@ def describe():
         if answer == "yes":
             set_complete(part)
             result += "They're wearing " + part + " which is"
-            followups = ["color", "pattern", "style", "material"]
+            followups = ["color", "pattern", "type", "material"]
             adjectives = []
             for followup in followups:
                 prompt = "What is the " + part + "'s " + followup + "?"
