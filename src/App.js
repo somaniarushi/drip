@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import axios from 'axios';
+
+const FLASK_APP = "http://127.0.0.1:5000";
 
 function App() {
+  const [response, setResponse] = useState(null);
+
+  function getResponse() {
+    axios({
+      method: 'GET',
+      url: `${FLASK_APP}/hello`, // change this to your flask server
+    }).then((res) => {
+      setResponse(res.data);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex items-center justify-center h-screen">
+      <div>
+        <button onClick={getResponse} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Get Response
+        </button>
+        {response &&
+          <p className="text-center">
+            {response['description'].toString()}
+          </p>
+        }   
+      </div>
     </div>
   );
 }
