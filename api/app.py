@@ -24,10 +24,11 @@ def hello():
 def roast():
     desc = request.args.get('desc')
     print("desc is " + desc)
+
     # Make a call to openAI API
     res = openai.Completion.create(
         model="text-davinci-003",
-        prompt=f"Here is a description of someone's fit:\n {desc}\n Write a valid criticism of this person's style, and suggest improvements they can make. Be specific using the given description, and answer in under 5 lines.",
+        prompt=f"Here is a description of someone's fit:\n {desc}\n Write a valid feedback of this person's style, highlight the positive, and suggest improvements they can make. Be specific using only the given description, and answer in under 5 lines.",
         max_tokens=100,
         top_p=1,
         frequency_penalty=0.0,
@@ -71,10 +72,10 @@ def describe():
         'complete': False,
     }
 
-    parts = fullbody['is'] + top['is'] + bottom['is']
+    parts = fullbody['is'] + top['is'] + bottom['is'] + ['shoes', 'jewelry', 'accessories']
 
     def check_necessary(part):
-        if fullbody['complete'] and part in fullbody['is'] or part in top['is'] or part in bottom['is']:
+        if fullbody['complete'] and (part in fullbody['is'] or part in top['is'] or part in bottom['is']):
             return False
         if top['complete'] and part in top['is']:
             return False
@@ -95,6 +96,7 @@ def describe():
             continue
         prompt = "Is this person wearing " + part + "?"
         answer = describe_image(url, prompt)['answer']
+        print(prompt, answer)
         if answer == "yes":
             set_complete(part)
             result += "They're wearing " + part + " which is"
@@ -107,6 +109,17 @@ def describe():
                     adjectives.append(answer)
             result += " " + ", ".join(adjectives) + ". "
 
+    # Description clean-up
+    desc_clean = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=f"{result}\n Without adding additional information, rephrase this to be a comprehensive description of a person's outfit. Do not miss keywords like 'formal', colors like 'white', or descriptions like 'suit'. Write 5 lines.",
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0.0,
+        presence_penalty=0.0
+    )
+
     return {
-        'desc': result
+        'result': result,
+        'desc': desc_clean.choices[0].text
     }

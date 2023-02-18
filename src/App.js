@@ -10,13 +10,13 @@ const config = {
   secretAccessKey: process.env.REACT_APP_SECRET_KEY,
   s3Url: `https://${process.env.REACT_APP_BUCKET}.s3.amazonaws.com/`
 }
-
 const FLASK_APP = "http://127.0.0.1:5000";
 
 function App() {
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState("");
   const [desc, setDesc] = useState("");
+  const [descUnclean, setDescUnclean] = useState("");
   const [roast, setRoast] = useState("");
 
   useEffect(() => {
@@ -47,6 +47,7 @@ function App() {
     const res = await axios.get(`${FLASK_APP}/desc?url=${imageURL}`);
     console.log("Data", res.data);
     setDesc(res.data.desc);
+    setDescUnclean(res.data.result);
     return res.data.desc;
   }
 
@@ -69,6 +70,7 @@ function App() {
         <button onClick={uploadImage} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Upload Image
         </button>
+        <div className="p-4">Desc Uncleaned: {descUnclean}</div>
         <div className="p-4">Desc: {desc}</div>
         <div className="p-4">Roast: {roast}</div>
       </div>
