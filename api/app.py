@@ -1,5 +1,6 @@
-from flask import Flask, request
+from flask import Flask, jsonify, request
 from flask_cors import CORS
+from VisionTransformer import *
 
 import os
 import openai
@@ -36,3 +37,15 @@ def roast():
         "description": res.choices[0].text
     }
 
+@api.route('/describe')
+def describe():
+    """
+    Describes an image based on a given prompt.
+
+    @param: image: URL of the image
+    @param: prompt: question about the image (i.e. "What type of top is the person wearing?")
+    """
+    url = request.args['image']
+    prompt = request.args['prompt']
+
+    return describe_image(url, prompt)
