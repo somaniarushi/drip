@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { uploadFile } from "react-s3";
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -15,7 +16,8 @@ const FLASK_APP = "http://127.0.0.1:5000";
 function App() {
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState("");
-  
+  const [roast, setRoast] = useState("");
+
   useEffect(() => {
     if (image == null) return;
     setImageURL(URL.createObjectURL(image));
@@ -36,6 +38,13 @@ function App() {
     .catch(err => console.error(err));
   }
 
+  const desc = "I'm wearing a blue t-shirt and a black hoodie with black jeans.";
+  async function useRoast() {
+    axios.get(`${FLASK_APP}/roast?desc=${desc}`)
+    .then(res => setRoast(res.data.critique))
+    .catch(err => console.error(err));
+  }
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div>
@@ -45,6 +54,12 @@ function App() {
         <button onClick={() => {}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Upload Image
         </button>
+        {/* <br />
+        <br />
+        <button onClick={useRoast} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Roast Gen
+        </button>
+        { roast && <div>{roast}</div> } */}
       </div>
     </div>
   );
