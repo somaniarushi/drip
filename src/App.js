@@ -16,6 +16,7 @@ const FLASK_APP = "http://127.0.0.1:5000";
 function App() {
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState("");
+  const [desc, setDesc] = useState("");
   const [roast, setRoast] = useState("");
 
   useEffect(() => {
@@ -32,34 +33,44 @@ function App() {
       console.log("No image!");
       return;
     }
+    const data = await uploadFile(image, config);
+    console.log(data);
+    setImageURL(data.location);
 
-    await uploadFile(image, config)
-    .then(data => setImageURL(data.location))
-    .catch(err => console.error(err));
+    const desc = await getDesc(data.location);
+    console.log("desc is ", desc);
+    const roast = await getRoast(desc);
+    console.log(roast);
   }
 
-  const desc = "I'm wearing a blue t-shirt and a black hoodie with black jeans.";
-  async function useRoast() {
+  async function getDesc(imageURL) {
+    const res = await axios.get(`${FLASK_APP}/desc?url=${imageURL}`);
+    console.log("Data", res.data);
+    setDesc(res.data.desc);
+    return res.data.desc;
+  }
+
+  async function getRoast() {
     axios.get(`${FLASK_APP}/roast?desc=${desc}`)
-    .then(res => setRoast(res.data.critique))
+    .then(res => {
+      setRoast(res.data.critique);
+      return res.data.critique;
+    })
     .catch(err => console.error(err));
   }
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div>
+    // Change flex direction in Tailwind
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="p-4">
         {imageURL ? <img src={imageURL} alt="preview upload" className="w-64 h-64" /> : <input type="file" onChange={onImageChange} />}
       </div>
-      <div>
-        <button onClick={() => {}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <div className="p-4">
+        <button onClick={uploadImage} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Upload Image
         </button>
-        {/* <br />
-        <br />
-        <button onClick={useRoast} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Roast Gen
-        </button>
-        { roast && <div>{roast}</div> } */}
+        <div className="p-4">Desc: {desc}</div>
+        <div className="p-4">Roast: {roast}</div>
       </div>
     </div>
   );
