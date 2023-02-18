@@ -48,7 +48,7 @@ def describe():
     #url = request.args['image']
     #prompt = request.args['prompt']
 
-    url = "http://cdn.shopify.com/s/files/1/1109/3312/collections/get-ready-to-shine-in-stunning-formal-dresses-the-dress-outlet.jpg?v=1673756130"
+    url = "https://dripdrownbucket.s3.amazonaws.com/IMG_4965.jpg"
     
     result = ""
 
@@ -72,7 +72,7 @@ def describe():
     parts = fullbody['is'] + top['is'] + bottom['is']
 
     def check_necessary(part):
-        if fullbody['complete'] and part in fullbody['is'] or part in top['is'] or part in bottom['is']:
+        if fullbody['complete'] and (part in fullbody['is'] or part in top['is'] or part in bottom['is']):
             return False
         if top['complete'] and part in top['is']:
             return False
@@ -93,6 +93,7 @@ def describe():
             continue
         prompt = "Is this person wearing " + part + "?"
         answer = describe_image(url, prompt)['answer']
+        print(prompt, answer)
         if answer == "yes":
             set_complete(part)
             result += "They're wearing " + part + " which is"
