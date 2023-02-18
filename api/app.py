@@ -45,7 +45,22 @@ def describe():
     @param: image: URL of the image
     @param: prompt: question about the image (i.e. "What type of top is the person wearing?")
     """
-    url = request.args['image']
-    prompt = request.args['prompt']
+    #url = request.args['image']
+    #prompt = request.args['prompt']
 
-    return describe_image(url, prompt)
+    url = "http://cdn.shopify.com/s/files/1/1109/3312/collections/get-ready-to-shine-in-stunning-formal-dresses-the-dress-outlet.jpg?v=1673756130"
+    
+    result = ""
+    parts = ["dress", "top", "bottom", "hat", "shoes", "jewelry"]
+    for part in parts:
+        prompt = "Is this person wearing " + part + "?"
+        answer = describe_image(url, prompt)['answer']
+        if answer == "yes":
+            result += "The person is wearing " + part + ". "
+            followups = ["color", "pattern", "style", "material"]
+            for followup in followups:
+                prompt = "What is the " + part + "'s " + followup + "?"
+                answer = describe_image(url, prompt)['answer']
+                result += "The " + part + " is " + answer + ". "
+    
+    return result
