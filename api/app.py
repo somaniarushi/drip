@@ -69,7 +69,7 @@ def describe():
         'complete': False,
     }
 
-    parts = fullbody['is'] + top['is'] + bottom['is']
+    parts = fullbody['is'] + top['is'] + bottom['is'] + ['shoes', 'jewelry', 'accessories']
 
     def check_necessary(part):
         if fullbody['complete'] and (part in fullbody['is'] or part in top['is'] or part in bottom['is']):
