@@ -6,11 +6,11 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 
 
 const config = {
-  bucketName: 'dripdownbucket',
+  bucketName: 'dripdrownbucket',
   region: 'us-west-2',
   accessKeyId: 'ACCESS_KEY_ID',
   secretAccessKey: 'SECRET_ACCESS_KEY',
-  s3Url: 'https://dripdownbucket.s3.amazonaws.com/'
+  s3Url: 'https://dripdrownbucket.s3.amazonaws.com/'
 }
 
 const FLASK_APP = "http://127.0.0.1:5000";
@@ -35,16 +35,23 @@ function App() {
     .catch(err => console.error(err));
 
     console.log(res);
+    // let config2 = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     'Access-Control-Allow-Origin': '*',
+    //     }
+    // }
 
-    axios({
-      method: 'GET',
-      url: `dripdownbucket.s3.amazonaws.com/me.jpeg`, // change this to your flask server
-    })
-    .then((res) => {
-      console.log(res);
-    }).catch((err) => {
-      console.log(err);
-    })
+    // axios({
+    //   method: 'GET',
+    //   url: `https://dripdrownbucket.s3.amazonaws.com/me.jpeg`, // change this to your flask server,
+    //   config2
+    // })
+    // .then((res) => {
+    //   console.log(res);
+    // }).catch((err) => {
+    //   console.log(err);
+    // })
 
 
     // axios({
