@@ -2,6 +2,10 @@ from transformers import ViltProcessor, ViltForQuestionAnswering
 import requests
 from PIL import Image
 
+"""
+This class handles the caption/description generation of images.
+"""
+
 def describe_image(url, prompt):
     """
     Describes an image based on a given prompt.
