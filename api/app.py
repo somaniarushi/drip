@@ -53,19 +53,60 @@ def describe():
     print("url is " + url)
 
     result = ""
-    parts = ["dress", "top", "bottom", "hat", "shoes", "jewelry"]
+
+    prompt = "Is this person wearing a casual or formal outfit?"
+    answer = describe_image(url, prompt)['answer']
+    result += "This person is wearing a " + answer + " outfit. "
+
+    fullbody = {
+        'is': ["dress"],
+        'complete': False,
+    }
+    top = {
+        'is': ["shirt"],
+        'complete': False,
+    }
+    bottom = {
+        'is': ["pants", "skirt", "shorts"],
+        'complete': False,
+    }
+
+    parts = fullbody['is'] + top['is'] + bottom['is']
+
+    def check_necessary(part):
+        if fullbody['complete'] and part in fullbody['is'] or part in top['is'] or part in bottom['is']:
+            return False
+        if top['complete'] and part in top['is']:
+            return False
+        if bottom['complete'] and part in bottom['is']:
+            return False
+        return True
+
+    def set_complete(part):
+        if part in fullbody['is']:
+            fullbody['complete'] = True
+        if part in top['is']:
+            top['complete'] = True
+        if part in bottom['is']:
+            bottom['complete'] = True
+
     for part in parts:
+        if not check_necessary(part):
+            continue
         prompt = "Is this person wearing " + part + "?"
         answer = describe_image(url, prompt)['answer']
         if answer == "yes":
-            result += "The person is wearing " + part + ". "
+            set_complete(part)
+            result += "They're wearing " + part + " which is"
             followups = ["color", "pattern", "style", "material"]
+            adjectives = []
             for followup in followups:
                 prompt = "What is the " + part + "'s " + followup + "?"
                 answer = describe_image(url, prompt)['answer']
-                result += "The " + part + " is " + answer + ". "
+                if answer not in adjectives:
+                    adjectives.append(answer)
+            result += " " + ", ".join(adjectives) + ". "
 
-    print("Result is ", result)
     return {
         'desc': result
     }
