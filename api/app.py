@@ -104,6 +104,5 @@ def describe():
                 if answer not in adjectives:
                     adjectives.append(answer)
             result += " " + ", ".join(adjectives) + ". "
-            print(result)
     
     return result
