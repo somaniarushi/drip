@@ -20,7 +20,7 @@ function App() {
           <div className="flex flex-col mr-10 w-full">
             <br /><br />
             <div className="flex justify-center">
-              <img src={state.imageURL} alt="your fit" className="w-80 bg-gray-100"/>
+              <img src={state.imageURL} alt="your fit" className="w-80 bg-gray-100 shine"/>
             </div>
           </div>
           <div className="w-full flex flex-col justify-center items-center">
