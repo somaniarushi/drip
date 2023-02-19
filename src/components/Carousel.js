@@ -55,12 +55,7 @@ function Carousel({state}) {
         easing="ease-in-out"
       >
         <div className="carousel-slide">
-          <div>
-            <img src={Lightbulb} alt="lightbulb" className="w-10 inline-block" />
-            <h3 className="header text-3xl">This is what we see from you...</h3>
-          </div>
-          <br />
-          <p>{state.description}</p>
+          <Ratings ratings={state.rating} />
         </div>
         <div className="carousel-slide">
           <div>
@@ -73,7 +68,12 @@ function Carousel({state}) {
           <p>{roastRest}</p>
         </div>
         <div className="carousel-slide">
-          <Ratings ratings={state.rating} />
+          <div>
+            <img src={Lightbulb} alt="lightbulb" className="w-10 inline-block" />
+            <h3 className="header text-3xl">This is what we see from you...</h3>
+          </div>
+          <br />
+          <p>{state.description}</p>
         </div>
         <div className="carousel-slide">
           <div>
