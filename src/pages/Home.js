@@ -17,7 +17,7 @@ const config = {
   s3Url: `https://${process.env.REACT_APP_BUCKET}.s3.amazonaws.com/`
 }
 
-const FLASK_APP = "http://127.0.0.1:5000";
+const FLASK_APP = "https://amks.pythonanywhere.com"
 const LOADING_FLAVOR = [
   "Analyzing your fit...",
   "Evaluating your vibes...",
