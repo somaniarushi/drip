@@ -41,29 +41,55 @@ def roast():
         "critique": res.choices[0].text
     }
 
-@api.route('/rating')
-def rate():
-    desc = request.args.get('desc')
-    feedback = request.args.get('roast')
-    found_json = False
-    while not found_json:
+def get_gpt_json(prompt, expected_keys):
+    while True:
         res = openai.Completion.create(
             model="text-davinci-003",
-            prompt=f"Description: {desc}\n\n Feedback: {feedback}\n\n Given this feedback, rate the outfit on a scale of 1-10 in the following criteria: originality, cohesiveness, flair, execution. Be moderate in the scoring. Output a json.",
+            prompt=prompt,
             max_tokens=100,
             top_p=1,
             frequency_penalty=0.0,
             presence_penalty=0.0
         )
-        json_data = res.choices[0].text
+        json_data = json.loads(res.choices[0].text.lower())
         try:
-            json.loads(json_data)
-            found_json = True
+            if sorted(json_data.keys()) == sorted(expected_keys):
+                return json_data
         except:
             pass
+
+@api.route('/rating')
+def rate():
+    desc = request.args.get('desc')
+    feedback = request.args.get('roast')
+    expected_keys = ["originality", "cohesiveness", "flair", "execution"]
+    prompt =  f"Description: {desc}\n\n Feedback: {feedback}\n\n Given this feedback, rate the outfit on a scale of 1-10 in the following criteria: originality, cohesiveness, flair, execution. Be moderate in the scoring. Output a json."
     return {
-        "rating": json_data
+        "rating": get_gpt_json(prompt, expected_keys)
     }
+
+@api.route('/aura')
+def aura():    
+    auras = {
+        "tech bro" : "You have a modern, ultra-cool aura that combines streetwear with high-tech gadgets and accessories. It's a blend of comfort, style, and tech that appeals to the modern, tech-savvy man.",
+        "diva" : "You have a glamorous, bold, and eye-catching aura with an emphasis on making a statement and looking fabulous. It is a mix of classic cuts and bright, daring colors with bold accessories for a dramatic and unforgettable look.",
+        "basic" : "You have an aura that focuses on clean, timeless pieces in neutral colors. It features classic silhouettes and minimal accessories for a minimalistic, effortless look.",
+        "dapper" : "You have a polished aura that emphasizes tailored pieces with a modern twist, such as slim-fitting suits, crisp dress shirts, and polished accessories. It's the perfect look for a timeless, sophisticated style.", 
+        "artsy" : "Your aura is characterized by bold statement pieces and creative, unique designs that are sure to make a statement. It is often experimental and unconventional, making it perfect for those looking to stand out from the crowd.",
+        "avant-garde" : "You have an edgy, trendsetting aura that incorporates innovative, artistic elements to create forward-thinking looks. It often plays with traditional silhouettes and materials to create unexpected and unique designs.",
+        "fashionista" : "Your have a fashionable and stylish aura, characterized by bold and trendy outfits that make a statement. It celebrates individual style and encourages experimentation with fashion trends.",
+        "cottagecore" : "Your aura celebrates the beauty and comfort of rural living, with a focus on soft, comfortable fabrics, floral prints, and natural colors. It emphasizes natural materials, homespun touches, and a peaceful and relaxed atmosphere.",
+        "emo" : "You have an edgy, dark aura, characterized by black clothing, studs, and punk or metal-inspired accessories. It is inspired by the 1990s emo music scene and typically incorporates a mix of vintage and modern pieces.",
+        "lumberjack" : "Your aura is inspired by traditional outdoor workwear, featuring plaid shirts, heavy boots, and other warm and durable items. It is a rugged, comfortable look that is perfect for a chilly day spent in the great outdoors."
+    }
+    desc = request.args.get('desc')
+    feedback = request.args.get('roast')   
+    expected_keys = ["aura"]
+    aura_string = ", ".join(auras.keys())
+    prompt = f"Description: {desc}\n\n Feedback: {feedback}\n\n Given this description and feedback, pick a single one of the following qualities to describe the outfit: {aura_string}. Output a json, the key should be \"{expected_keys[0]}\"."
+    json_data = get_gpt_json(prompt, expected_keys)
+    json_data["description"] = auras[json_data["aura"]]
+    return json_data
 
 @api.route('/desc')
 def describe():
