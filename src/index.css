@@ -46,11 +46,11 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  
+
   .meter {
     box-sizing: content-box;
     height: 15px; /* Can be anything */
-    width: 50%;
+    width: 90%;
     position: relative;
     /* background: #555; */
     border-radius: 25px;
@@ -73,7 +73,8 @@
     ); */
     background: linear-gradient(175deg,
         rgb(244, 104, 239),
-        rgb(88, 198, 253));
+        rgb(88, 198, 253)
+        );
     position: relative;
     overflow: hidden;
   }

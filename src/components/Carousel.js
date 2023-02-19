@@ -45,7 +45,7 @@ function Carousel({state}) {
         centerMode={true}
         easing="ease-in-out"
       >
-        {/* here you can also pass any other element attributes. Also, you can use your custom components as slides 
+        {/* here you can also pass any other element attributes. Also, you can use your custom components as slides
         <div className="carousel-slide">
           <h3 className="header text-3xl">This is what we see...</h3>
           <br />
@@ -74,27 +74,48 @@ function Carousel({state}) {
 }
 
 function Ratings({ ratings }) {
+  // Change all the ratings to integers
+  for (const key in ratings) {
+    ratings[key] = parseInt(ratings[key]);
+  }
+  // Calculate the average rating
+  const avg = (ratings['originality'] + ratings['flair'] + ratings['cohesiveness'] + ratings['execution']) / 4;
+  // Round the average rating to the nearest integer
+  const roundedAvg = Math.round(avg);
+  // Calculate it to be out of 100
+  const avgPercent = roundedAvg * 10;
   return (
     <div>
       <h1>Ratings</h1>
+      <div className="meter" style={{height: "20px", marginBottom: '30px'}}>
+          <span style={{width: avgPercent + "%"}}></span>
+      </div>
       <p>Originality</p>
-      <div class="meter">
-          <span style={{width: ratings['originality'] + "0%"}}></span>
+      <div className="meter">
+          <span style={{width: ratings['originality'] + "0%",
+                          background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
+        }}></span>
       </div>
 
       <p>Flair</p>
-      <div class="meter">
-          <span style={{width: ratings['flair'] + "0%"}}></span>
+      <div className="meter">
+          <span style={{width: ratings['flair'] + "0%",
+                        background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
+          }}></span>
       </div>
 
       <p>Cohesiveness</p>
-      <div class="meter">
-          <span style={{width: ratings['cohesiveness'] + "0%"}}></span>
+      <div className="meter">
+          <span style={{width: ratings['cohesiveness'] + "0%",
+                        background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
+        }}></span>
       </div>
 
       <p>Execution</p>
-      <div class="meter">
-          <span style={{width: ratings['execution'] + "0%"}}></span>
+      <div className="meter">
+          <span style={{width: ratings['execution'] + "0%",
+                        background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
+        }}></span>
       </div>
     </div>
   )
