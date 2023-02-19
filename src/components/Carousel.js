@@ -57,7 +57,7 @@ function Carousel({state}) {
         <div className="carousel-slide">
           <div>
             <img src={Heart} alt="heart" className="w-10 inline-block" />
-            <h3 className="header text-3xl">Feedback</h3>
+            <h3 className="header text-3xl">This is what we'd like to see...</h3>
           </div>
           <br />
           <p className="header gradient-text">{roast}.</p>

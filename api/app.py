@@ -99,9 +99,6 @@ def describe():
     @param: image: URL of the image
     @param: prompt: question about the image (i.e. "What type of top is the person wearing?")
     """
-    #url = request.args['image']
-    #prompt = request.args['prompt']
-
     url = request.args.get('url')
     print("url is " + url)
 

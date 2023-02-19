@@ -12,7 +12,6 @@ function App() {
       <div className="ml-5 mr-5 mb-10">
         <h1 className="text-5xl text-center align-center w-full">
           <span className="header-outline">YOUR DRIP </span>
-          
           <span className="header">
           RESULTS
           </span>
