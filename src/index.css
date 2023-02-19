@@ -4,81 +4,135 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
-@layer base {
-  .header {
-    font-family: 'Archivo Black', sans-serif;
-    color: white;
+.responsive-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  height: 100vh;
+}
+
+
+@media only screen and (max-width: 800px) {
+  .sm-hidden {
+    display: none;
   }
 
-  .header-outline {
-    font-family: 'Archivo Black', sans-serif;
-    -webkit-text-stroke: 1px white;
-    color: transparent;
+  .responsive-flex {
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
   }
+}
 
-  .file-upload {
-    border: 1px solid #39383C;
-  }
+.header {
+  font-family: 'Archivo Black', sans-serif;
+  color: white;
+}
 
-  .file-upload-container {
-    max-width: 300px;
-  }
+.header-outline {
+  font-family: 'Archivo Black', sans-serif;
+  -webkit-text-stroke: 1px white;
+  color: transparent;
+}
 
-  .bg-image {
-    width: 210px;
-  }
+.file-upload {
+  border: 2px solid #63616b;
+  border-style: dashed;
+  border-radius: 10px;
+}
 
-  .carousel-slide {
-    width: 50vh;
-    overflow-y: scroll;
-  }
+.file-upload-container {
+  max-width: 300px;
+}
 
-  .background {
-    z-index: -10;
-  }
+.bg-image {
+  width: 210px;
+}
 
-  .gradient {
-    background: -webkit-linear-gradient(135deg, #ffadfc, #6ec6f5);
-  }
+.carousel-slide {
+  width: 50vh;
+  overflow-y: scroll;
+  padding: 30px;
+  padding-bottom: 100px;
+  background: -webkit-linear-gradient(90deg, rgba(127, 99, 229, 0.00), rgba(115, 170, 234, 0.1));
+}
 
-  .gradient-text {
-    background: -webkit-linear-gradient(135deg, #ffadfc, #6ec6f5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+.background {
+  z-index: -10;
+}
 
-  .logo {
-    width: 80px;
-    margin-top: 100px;
-  }
+.gradient {
+  background: -webkit-linear-gradient(135deg, #ffadfc, #6ec6f5);
+}
 
-  .shine {
-    -webkit-mask-image: linear-gradient(45deg,white 25%,rgba(0,0,0,.2) 50%,white 75%);
-    mask-image: linear-gradient(45deg,white 25%,rgba(0,0,0,.2) 50%,white 75%);
-    -webkit-mask-size: 800%;
-    mask-size: 800%;
-    -webkit-mask-position: 0;
-    mask-position: 0;
-  }
+.gradient-text {
+  background: -webkit-linear-gradient(135deg, #ffadfc, #6ec6f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-  .shine:hover {
-    transition: mask-position 2s ease,-webkit-mask-position 2s ease;
-    -webkit-mask-position: 120%;
-    mask-position: 120%;
-    opacity: 1;
-  }
+.logo {
+  width: 80px;
+  margin-top: 100px;
+}
 
-  .meter {
-    box-sizing: content-box;
-    height: 15px; /* Can be anything */
-    width: 90%;
-    position: relative;
-    /* background: #555; */
-    border-radius: 25px;
-    padding: 2px;
-    border: 1px solid #39383C;
-  }
 
+.shine {
+  -webkit-mask-image: linear-gradient(45deg,white 25%,rgba(0,0,0,.2) 50%,white 75%);
+  mask-image: linear-gradient(45deg,white 25%,rgba(0,0,0,.2) 50%,white 75%);
+  -webkit-mask-size: 800%;
+  mask-size: 800%;
+  -webkit-mask-position: 0;
+  mask-position: 0;
+  background-color: #ffffffe8;
+  padding: 20px 5px;
+}
+
+.shine:hover {
+  transition: mask-position 2s ease,-webkit-mask-position 2s ease;
+  -webkit-mask-position: 120%;
+  mask-position: 120%;
+  opacity: 1;
+}
+
+.meter {
+  box-sizing: content-box;
+  height: 15px; /* Can be anything */
+  width: 90%;
+  position: relative;
+  /* background: #555; */
+  border-radius: 25px;
+  padding: 2px;
+  border: 1px solid #39383C;
+}
+
+.meter > span {
+  display: block;
+  height: 100%;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  /* background-color: rgb(76, 159, 247); */
+  /* background: linear-gradient(
+    center bottom,
+    rgb(244, 104, 239) 27%,
+    rgb(88, 198, 253) 99%
+  ); */
+  background: linear-gradient(175deg,
+      rgb(244, 104, 239),
+      rgb(88, 198, 253)
+      );
+  position: relative;
+  overflow: hidden;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
   .meter > span {
     display: block;
     height: 100%;

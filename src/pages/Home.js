@@ -5,12 +5,7 @@ import inputBox from '../assets/input/image-input-box.svg';
 import { useNavigate } from 'react-router-dom';
 import Background from '../components/Background';
 import Header from '../components/Header';
-import FadeIn from 'react-fade-in';
-
-
-import { tsParticles } from "https://cdn.jsdelivr.net/npm/tsparticles-engine/+esm";
-import { loadFull } from "https://cdn.jsdelivr.net/npm/tsparticles/+esm";
-import { loadCardsShape } from "https://cdn.jsdelivr.net/npm/tsparticles-shape-cards/+esm";
+import { FadeIn } from 'react-slide-fade-in';
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -120,9 +115,9 @@ function App() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen max-w-4xl mx-auto p-20">
-      <FadeIn>
-        <div className="flex flex-col justify-center mr-10 z-10">
+    <div className="responsive-flex p-20">
+      <div className="flex flex-col justify-center mr-10 z-10">
+        <FadeIn from="bottom" positionOffset={50} duration={300}>
           <Header />
           <div className="text-6xl">
             <h1 className="header">DRIP</h1>
@@ -140,9 +135,8 @@ function App() {
               <p>Refine your aesthetic.<br />Curate excellence.</p>
             )}
           </div>
-        </div>
-      </FadeIn>
-
+        </FadeIn>
+      </div>
       <div className="flex items-center justify-center file-upload-container z-10">
         {imageURL ?
           (
@@ -154,18 +148,20 @@ function App() {
         }
       </div> 
       <Background />
-
+      <p className="fixed bottom-10 left-10 text-xs color-white">
+        *AI is not perfect. We are not responsible for any bad fits.
+      </p>
     </div>
   );
 }
 
 function Upload({submitImage}) {
   return (
-    <label className="flex flex-col items-center justify-center w-full border-2 file-upload border-dashed rounded-lg cursor-pointer bg-transparent hover:opacity-50 p-5">
+    <label className="flex flex-col items-center justify-center w-full file-upload cursor-pointer bg-transparent hover:opacity-50 p-5">
       <div className="flex flex-col items-center justify-center pt-5 pb-6">
         <img src={inputBox} alt="input box" className="w-full" />
         <p className="mb-2 text-sm color-white text-center">
-          <span className="font-semibold">Click to choose a picture of your fit</span> and get it analyzed by our AI.
+          <span className="font-semibold">Click to choose a picture of your fit</span> and get it analyzed by our expert AI stylist*.
         </p>
       </div>
       <input id="dropzone-file" type="file" className="hidden" onChange={submitImage} />

@@ -2,36 +2,38 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Carousel from '../components/Carousel';
 import Header from '../components/Header';
-import FadeIn from 'react-fade-in';
+import { FadeIn } from 'react-slide-fade-in';
 
 function App() {
   const { state } = useLocation();
 
   return (
-    <div className="flex flex-col justify-center h-screen max-w-4xl mx-auto w-full">
+    <div className="flex flex-col  h-screen max-w-4xl mx-auto w-full">
       <div className="ml-5 mr-5">
-        <FadeIn>
-          <Header />
+        <Header />
+        <FadeIn from="bottom" positionOffset={50} duration={300}>
           <h1 className="text-5xl text-center align-center w-full">
             <span className="header-outline">YOUR DRIP </span>
             <span className="header">
             RESULTS
             </span>
           </h1>
+          <p className="text-center max-w-xl mx-auto">
+            Click or drag back and forth (mobile friendly) to see what our professional AI stylist thinks of your drip.
+          </p>
         </FadeIn>
-        <FadeIn delay={500} transitionDuration={1000}>
-          <div className="flex flex-row justify-center items-center">
-            <div className="flex flex-col mr-10 w-full">
-              <br /><br />
-              <div className="flex justify-center">
-                <img src={state.imageURL} alt="your fit" className="w-80 bg-gray-100 shine"/>
-              </div>
-            </div>
-            <div className="w-full flex flex-col justify-center items-center">
-              <Carousel state={state} />
-            </div>
+        <div className="responsive-flex">
+          <div className="w-1/2 flex flex-col justify-center items-center">
+            <FadeIn from="bottom" positionOffset={100} duration={300} delay={300}>
+              <img src={state.imageURL} alt="your fit" className="w-80 shine" />
+            </FadeIn>
           </div>
-        </FadeIn>
+          <div className="w-full flex flex-col justify-center items-center">
+            <FadeIn from="bottom" positionOffset={200} duration={200} delay={500}>
+              <Carousel state={state} />
+            </FadeIn>
+          </div>
+        </div>
       </div>
     </div>
   )

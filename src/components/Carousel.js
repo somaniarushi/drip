@@ -22,7 +22,7 @@ function Carousel({state}) {
   const auraRest = state.aura.description.split('.').slice(1).join('.');
 
   return (
-    <div className="flex flex-col justify-content h-full w-full overflow-y-scroll">
+    <div className="flex flex-col justify-content h-full w-full items-center mt-10">
       <ReactSimplyCarousel
         activeSlideIndex={activeSlideIndex}
         onRequestChange={setActiveSlideIndex}
@@ -32,16 +32,17 @@ function Carousel({state}) {
         forwardBtnProps={{
           //here you can also pass className, or any other button element attributes
           style: {
-            padding: '20px 0',
+            padding: '20px',
+            fontSize: 30,
           },
-          children: <p>next 🔥</p>,
+          children: <p className="sm-hidden">▶</p>,
         }}
         backwardBtnProps={{
-          //here you can also pass className, or any other button element attributes
           style: {
-            padding: '20px 0',
+            padding: '20px',
+            fontSize: 30,
           },
-          children: <p>🔥 back</p>,
+          children: <p className="sm-hidden">◀</p>,
         }}
         responsiveProps={[
           {
@@ -55,12 +56,7 @@ function Carousel({state}) {
         easing="ease-in-out"
       >
         <div className="carousel-slide">
-          <div>
-            <img src={Lightbulb} alt="lightbulb" className="w-10 inline-block" />
-            <h3 className="header text-3xl">Your Full FashionID 👤</h3>
-          </div>
-          <br />
-          <p>{state.description}</p>
+          <Ratings ratings={state.rating} />
         </div>
         <div className="carousel-slide">
           <div>
@@ -73,7 +69,12 @@ function Carousel({state}) {
           <p>{roastRest}</p>
         </div>
         <div className="carousel-slide">
-          <Ratings ratings={state.rating} />
+          <div>
+            <img src={Lightbulb} alt="lightbulb" className="w-10 inline-block" />
+            <h3 className="header text-3xl">This is what we see from you...</h3>
+          </div>
+          <br />
+          <p>{state.description}</p>
         </div>
         <div className="carousel-slide">
           <div>
@@ -88,8 +89,7 @@ function Carousel({state}) {
           <br />
           <p className="header gradient-text">{aura}.</p>
           <br />
-          <p>{auraRest}</p>
-          <br />
+          <p>{auraRest} We hope our comments helped you excel more in this aura!</p>
         </div>
       </ReactSimplyCarousel>
     </div>
