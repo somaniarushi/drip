@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ReactSimplyCarousel from 'react-simply-carousel';
 import Heart from '../assets/icons/heart.png';
 import Lightbulb from '../assets/icons/lightbulb.png';
+import Drops from '../assets/icons/drops.png';
 import '../index.css'
 
 function Carousel({state}) {
@@ -89,10 +90,13 @@ function Ratings({ ratings }) {
   return (
     <div>
       <div>
-          <img src={Heart} alt="heart" className="w-10 inline-block" />
-          <h3 className="header text-3xl">Ratings</h3>
-        </div>
-        <br />
+          <img src={Drops} alt="drops" className="w-10 inline-block" />
+          <h3 className="header text-3xl">The Dripmeter</h3>
+          <p>On our patented Dripmeter, you've earned the following scores:</p>
+      </div>
+      <br />
+
+      <p><b>Overall</b></p>
       <div className="flex flex-row justify-center">
         <div className="meter" style={{height: "20px", marginBottom: '30px', marginRight: "30px"}}>
             <span style={{width: avgPercent + "%"}}></span>
@@ -102,7 +106,7 @@ function Ratings({ ratings }) {
 
       <p>Originality</p>
       <div className="flex flex-row justify-center">
-        <div className="meter" style={{marginBottom: '30px', marginRight: "30px"}}>
+        <div className="meter" style={{marginBottom: '10px', marginRight: "30px"}}>
             <span style={{width: ratings['originality'] + "0%",
                             background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
           }}></span>
@@ -112,7 +116,7 @@ function Ratings({ ratings }) {
 
       <p>Flair</p>
       <div className="flex flex-row justify-center">
-        <div className="meter" style={{marginBottom: '30px', marginRight: "30px"}}>
+        <div className="meter" style={{marginBottom: '10px', marginRight: "30px"}}>
             <span style={{width: ratings['flair'] + "0%",
                           background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
             }}></span>
@@ -122,7 +126,7 @@ function Ratings({ ratings }) {
 
       <p>Cohesiveness</p>
       <div className="flex flex-row justify-center">
-        <div className="meter" style={{marginBottom: '30px', marginRight: "30px"}}>
+        <div className="meter" style={{marginBottom: '10px', marginRight: "30px"}}>
             <span style={{width: ratings['cohesiveness'] + "0%",
                           background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
           }}></span>
@@ -132,7 +136,7 @@ function Ratings({ ratings }) {
 
       <p>Execution</p>
       <div className="flex flex-row justify-center">
-        <div className="meter" style={{marginBottom: '30px', marginRight: "30px"}}>
+        <div className="meter" style={{marginBottom: '10px', marginRight: "30px"}}>
             <span style={{width: ratings['execution'] + "0%",
                           background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
           }}></span>
