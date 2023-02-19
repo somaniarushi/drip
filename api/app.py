@@ -155,3 +155,6 @@ def describe():
         'result': result,
         'desc': desc_clean.choices[0].text
     }
+
+if __name__ == "__main__":
+    api.run(debug=False)
