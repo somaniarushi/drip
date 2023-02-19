@@ -51,8 +51,8 @@ def get_gpt_json(prompt, expected_keys):
             frequency_penalty=0.0,
             presence_penalty=0.0
         )
-        json_data = json.loads(res.choices[0].text.lower())
         try:
+            json_data = json.loads(res.choices[0].text.lower())
             if sorted(json_data.keys()) == sorted(expected_keys):
                 return json_data
         except:
@@ -69,12 +69,12 @@ def rate():
     }
 
 @api.route('/aura')
-def aura():    
+def aura():
     auras = {
         "tech bro" : "You have a modern, ultra-cool aura that combines streetwear with high-tech gadgets and accessories. It's a blend of comfort, style, and tech that appeals to the modern, tech-savvy man.",
         "diva" : "You have a glamorous, bold, and eye-catching aura with an emphasis on making a statement and looking fabulous. It is a mix of classic cuts and bright, daring colors with bold accessories for a dramatic and unforgettable look.",
         "basic" : "You have an aura that focuses on clean, timeless pieces in neutral colors. It features classic silhouettes and minimal accessories for a minimalistic, effortless look.",
-        "dapper" : "You have a polished aura that emphasizes tailored pieces with a modern twist, such as slim-fitting suits, crisp dress shirts, and polished accessories. It's the perfect look for a timeless, sophisticated style.", 
+        "dapper" : "You have a polished aura that emphasizes tailored pieces with a modern twist, such as slim-fitting suits, crisp dress shirts, and polished accessories. It's the perfect look for a timeless, sophisticated style.",
         "artsy" : "Your aura is characterized by bold statement pieces and creative, unique designs that are sure to make a statement. It is often experimental and unconventional, making it perfect for those looking to stand out from the crowd.",
         "avant-garde" : "You have an edgy, trendsetting aura that incorporates innovative, artistic elements to create forward-thinking looks. It often plays with traditional silhouettes and materials to create unexpected and unique designs.",
         "fashionista" : "Your have a fashionable and stylish aura, characterized by bold and trendy outfits that make a statement. It celebrates individual style and encourages experimentation with fashion trends.",
@@ -83,7 +83,7 @@ def aura():
         "lumberjack" : "Your aura is inspired by traditional outdoor workwear, featuring plaid shirts, heavy boots, and other warm and durable items. It is a rugged, comfortable look that is perfect for a chilly day spent in the great outdoors."
     }
     desc = request.args.get('desc')
-    feedback = request.args.get('roast')   
+    feedback = request.args.get('roast')
     expected_keys = ["aura"]
     aura_string = ", ".join(auras.keys())
     prompt = f"Description: {desc}\n\n Feedback: {feedback}\n\n Given this description and feedback, pick a single one of the following qualities to describe the outfit: {aura_string}. Output a json, the key should be \"{expected_keys[0]}\"."
