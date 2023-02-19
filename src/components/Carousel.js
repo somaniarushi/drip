@@ -14,6 +14,12 @@ function Carousel({state}) {
   // get rest of sentences of roast
   const roastRest = state.roast.split('.').slice(1).join('.');
 
+  // get first sentence of aura
+  const aura = state.aura.description.split('.')[0];
+
+  // get rest of sentences of aura
+  const auraRest = state.aura.description.split('.').slice(1).join('.');
+
   return (
     <div className="flex flex-col justify-content h-full w-full overflow-y-scroll">
       <ReactSimplyCarousel
@@ -69,7 +75,17 @@ function Carousel({state}) {
           <Ratings ratings={state.rating} />
         </div>
         <div className="carousel-slide">
-          slide 3
+          <div>
+            <h3 className="header text-3xl">Your drip aura is...</h3>
+            <h3 className="header gradient-text text-3xl">
+              {state.aura.aura.toUpperCase()}
+            </h3>
+          </div>
+          <br />
+          <p className="header gradient-text">{aura}.</p>
+          <br />
+          <p>{auraRest}</p>
+          <br />
         </div>
       </ReactSimplyCarousel>
     </div>
@@ -96,12 +112,12 @@ function Ratings({ ratings }) {
       </div>
       <br />
 
-      <p><b>Overall</b></p>
+      <p className="header"><b>Overall</b></p>
       <div className="flex flex-row justify-center">
         <div className="meter" style={{height: "20px", marginBottom: '30px', marginRight: "30px"}}>
             <span style={{width: avgPercent + "%"}}></span>
         </div>
-        <p>{avgPercent + "%"}</p>
+        <p className="header">{avgPercent + "%"}</p>
       </div>
 
       <p>Originality</p>

@@ -83,7 +83,7 @@ function App() {
     setPhase(2);
 
     // Navigate to results page
-    navigate('/results', { state: { description: description, roast: roast, rating: rating, imageURL: uploadURL } });
+    navigate('/results', { state: { description: description, roast: roast, rating: rating, aura: aura, imageURL: uploadURL } });
   }
 
   async function getRating(description, roast) {
