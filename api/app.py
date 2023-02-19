@@ -25,12 +25,20 @@ def hello():
 @api.route('/roast')
 def roast():
     desc = request.args.get('desc')
+    roast_level = request.args.get('roastLevel')
     print("desc is " + desc)
+    print("roast level is " + roast_level)
+
+    prompts = {
+        "light": "Write a valid positive comment on this person's style as if you were their friend hyping them up. Highlight the positive and compliment them in looks, fashion, pose.",
+        "medium": "Write a valid critique of this person's style. Highlight the positive. If there are negatives, explain them and suggest actionable improvements they can make. Be constructive.",
+        "dark": "Write a valid roast of this person's style as if you were a fashion critic. Highlight the positive if any. Highlight the negative and be mean if it warrants it. Suggest improvements they can make. Be very critical."
+    }
 
     # Make a call to openAI API
     res = openai.Completion.create(
         model="text-davinci-003",
-        prompt=f"Here is a description of someone's fit:\n {desc}\n Write a valid critique of this person's style. Highlight the positive if any. Highlight the negative and suggest improvements they can make. Be critical. DO NOT make additions to their outfit. Be specific using ONLY the given description. Answer in 5-7 lines but finish all sentences.",
+        prompt=f"Here is a description of someone's fit:\n {desc}\n " + prompts[roast_level] + "DO NOT make additions to their outfit. Be specific using ONLY the given description. Answer in less than 5 sentences.",
         max_tokens=100,
         top_p=1,
         frequency_penalty=0.0,
