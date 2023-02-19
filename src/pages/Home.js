@@ -145,7 +145,9 @@ function App() {
         }
       </div> 
       <Background />
-
+      <p className="fixed bottom-10 left-10 text-xs color-white">
+        *AI is not perfect. We are not responsible for any bad fits.
+      </p>
     </div>
   );
 }
@@ -156,7 +158,7 @@ function Upload({submitImage}) {
       <div className="flex flex-col items-center justify-center pt-5 pb-6">
         <img src={inputBox} alt="input box" className="w-full" />
         <p className="mb-2 text-sm color-white text-center">
-          <span className="font-semibold">Click to choose a picture of your fit</span> and get it analyzed by our AI.
+          <span className="font-semibold">Click to choose a picture of your fit</span> and get it analyzed by our expert AI stylist*.
         </p>
       </div>
       <input id="dropzone-file" type="file" className="hidden" onChange={submitImage} />
