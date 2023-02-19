@@ -4,6 +4,7 @@ import { uploadFile } from "react-s3";
 import inputBox from '../assets/input/image-input-box.svg';
 import { useNavigate } from 'react-router-dom';
 import Background from '../components/Background';
+import Header from '../components/Header';
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -104,6 +105,7 @@ function App() {
   return (
     <div className="flex items-center justify-center h-screen max-w-4xl mx-auto p-20">
       <div className="flex flex-col justify-center mr-10 z-10">
+        <Header />
         <div className="text-6xl">
           <h1 className="header">DRIP</h1>
           <h1 className="header-outline">

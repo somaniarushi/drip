@@ -1,26 +1,14 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Carousel from '../components/Carousel';
-import logo from '../assets/icons/logo.svg';
+import Header from '../components/Header';
 
 function App() {
   const { state } = useLocation();
 
   return (
     <div className="flex flex-col justify-center h-screen max-w-4xl mx-auto w-full">
-      {/* header */}
-      <div className="ml-5 mr-5 mt-5 h-20 flex flex-row justify-center items-center">
-        {/* left */}
-        <div className="flex-1 flex flex-row justify-start items-center">
-          <img src={logo} alt="logo" className="w-20" />
-        </div>
-        {/* right */}
-        <div className=" flex-1 flex flex-row justify-end items-center">
-          <a className="hover:opacity-50 header" href="/">
-            RE-TAKE 📸 
-          </a>
-        </div>
-      </div>
+      <Header />
       <div className="ml-5 mr-5 mb-10">
         <h1 className="text-5xl text-center align-center w-full">
           <span className="header-outline">YOUR DRIP </span>
