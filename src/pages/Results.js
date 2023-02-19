@@ -8,8 +8,8 @@ function App() {
 
   return (
     <div className="flex flex-col justify-center h-screen max-w-4xl mx-auto w-full">
-      <Header />
-      <div className="ml-5 mr-5 mb-10">
+      <div className="ml-5 mr-5">
+        <Header />
         <h1 className="text-5xl text-center align-center w-full">
           <span className="header-outline">YOUR DRIP </span>
           <span className="header">
