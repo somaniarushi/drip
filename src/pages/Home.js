@@ -5,9 +5,6 @@ import inputBox from '../assets/input/image-input-box.svg';
 import { useNavigate } from 'react-router-dom';
 import Background from '../components/Background';
 import Header from '../components/Header';
-import { tsParticles } from "https://cdn.jsdelivr.net/npm/tsparticles-engine/+esm";
-import { loadFull } from "https://cdn.jsdelivr.net/npm/tsparticles/+esm";
-import { loadCardsShape } from "https://cdn.jsdelivr.net/npm/tsparticles-shape-cards/+esm";
 import { FadeIn } from 'react-slide-fade-in';
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
@@ -58,8 +55,6 @@ function App() {
   }, [image]);
 
   async function submitImage(e) {
-    loadParticles(configs);
-
     const img = e.target.files[0];
     setImage(img);
     setPhase(1);
@@ -82,10 +77,6 @@ function App() {
 
     // Set phase to done
     setPhase(2);
-
-    // turn off particles
-    const particles = tsParticles.domItem(0);
-    particles.destroy();
 
     // navigate away
     navigate('/settings', { state: { description: description, imageURL: data.location } });
@@ -151,60 +142,5 @@ function Upload({submitImage}) {
     </label>
   )
 }
-
-async function loadParticles(options) {
-  await loadFull(tsParticles);
-  await loadCardsShape(tsParticles);
-
-  await tsParticles.load(options);
-}
-
-const configs = {
-  interactivity: {
-    events: {
-      onHover: {
-        enable: true,
-        mode: "repulse"
-      }
-    }
-  }, 
-  particles: {
-    number: {
-      value: 100
-    },
-    shape: {
-      type: "character",
-      options: {
-        character: {
-          value: "💧",
-        },
-      }
-    },
-    move: {
-      enable: true,
-      angle: 0,
-      speed: 9,
-      direction: "bottom",
-    },
-    size: {
-      random: {
-        enable: true,
-        maximumValue: 20,
-        minimumValue: 10
-      }
-    },
-    opacity: {
-      value: { min: 0, max: 0.4 },
-      animation: {
-        count: 1,
-        enable: true,
-        speed: 0.5,
-        startValue: "min",
-        sync: false
-      }
-    },
-  },
-};
-
 
 export default App;
