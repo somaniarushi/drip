@@ -28,7 +28,7 @@ def roast():
     # Make a call to openAI API
     res = openai.Completion.create(
         model="text-davinci-003",
-        prompt=f"Here is a description of someone's fit:\n {desc}\n Write a valid feedback of this person's style, highlight the positive, and suggest improvements they can make. Be specific using only the given description, and answer in under 5 lines.",
+        prompt=f"Here is a description of someone's fit:\n {desc}\n Write a valid feedback of this person's style, highlight the positive, and suggest improvements they can make. DO NOT make additions to their outfit. Be specific using ONLY the given description. Answer in 5 lines.",
         max_tokens=100,
         top_p=1,
         frequency_penalty=0.0,
@@ -72,7 +72,7 @@ def describe():
         'complete': False,
     }
 
-    parts = fullbody['is'] + top['is'] + bottom['is'] + ['shoes', 'jewelry', 'hat', 'tie', 'jacket']
+    parts = fullbody['is'] + top['is'] + bottom['is'] + ['shoes', 'jewelry', 'hat', 'tie', 'jacket', 'belt', 'scarf']
 
     def check_necessary(part):
         if fullbody['complete'] and (part in fullbody['is'] or part in top['is'] or part in bottom['is']):
