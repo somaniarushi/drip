@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request
 from flask_cors import CORS
 from VisionTransformer import *
+from multiprocessing import Pool
 
 import os
 import openai
@@ -88,15 +89,16 @@ def describe():
         if part in bottom['is']:
             bottom['complete'] = True
 
-    for part in parts:
+    def describe_part(part):
+        part_result = ""
         if not check_necessary(part):
-            continue
+            return
         prompt = "Is this person wearing " + part + "?"
         answer = describe_image(url, prompt)['answer']
         print(prompt, answer)
         if answer == "yes":
             set_complete(part)
-            result += "They're wearing " + part + " which is"
+            part_result += "They're wearing " + part + " which is"
             followups = ["color", "pattern", "type", "material"]
             adjectives = []
             for followup in followups:
@@ -104,6 +106,11 @@ def describe():
                 answer = describe_image(url, prompt)['answer']
                 if answer not in adjectives:
                     adjectives.append(answer)
-            result += " " + ", ".join(adjectives) + ". "
+            part_result += " " + ", ".join(adjectives) + ". "
+        return part_result
     
+    for part in parts:
+        part_description = describe_part(part)
+        result += part_description
+
     return result
