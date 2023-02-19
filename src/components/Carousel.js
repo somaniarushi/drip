@@ -87,32 +87,32 @@ function Ratings({ ratings }) {
   return (
     <div>
       <h1>Ratings</h1>
-      <div class="meter" style={{height: "20px", marginBottom: '30px'}}>
+      <div className="meter" style={{height: "20px", marginBottom: '30px'}}>
           <span style={{width: avgPercent + "%"}}></span>
       </div>
       <p>Originality</p>
-      <div class="meter">
+      <div className="meter">
           <span style={{width: ratings['originality'] + "0%",
                           background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
         }}></span>
       </div>
 
       <p>Flair</p>
-      <div class="meter">
+      <div className="meter">
           <span style={{width: ratings['flair'] + "0%",
                         background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
           }}></span>
       </div>
 
       <p>Cohesiveness</p>
-      <div class="meter">
+      <div className="meter">
           <span style={{width: ratings['cohesiveness'] + "0%",
                         background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
         }}></span>
       </div>
 
       <p>Execution</p>
-      <div class="meter">
+      <div className="meter">
           <span style={{width: ratings['execution'] + "0%",
                         background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
         }}></span>
