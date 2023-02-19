@@ -58,6 +58,9 @@ function App() {
   }, [image]);
 
   async function submitImage(e) {
+
+    loadParticles(configs);
+
     const img = e.target.files[0];
     setImage(img);
     setPhase(1);
@@ -201,9 +204,6 @@ const configs = {
     }
   },
 };
-
-
-loadParticles(configs);
 
 
 export default App;
