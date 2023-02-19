@@ -19,7 +19,7 @@ function App() {
             </span>
           </h1>
           <p className="text-center max-w-xl mx-auto">
-            Click or drag back and forth (mobile friendly) to see what our professional AI stylist thinks of your drip.
+            Click or drag back and forth to see what our professional AI stylist thinks of your drip.
           </p>
         </FadeIn>
         <div className="flex justify-center items-center w-full mt-10">
