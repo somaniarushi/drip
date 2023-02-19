@@ -30,7 +30,7 @@ def roast():
     # Make a call to openAI API
     res = openai.Completion.create(
         model="text-davinci-003",
-        prompt=f"Here is a description of someone's fit:\n {desc}\n Write a valid feedback of this person's style, highlight the positive, and suggest improvements they can make. DO NOT make additions to their outfit. Be specific using ONLY the given description. Answer in 5 lines.",
+        prompt=f"Here is a description of someone's fit:\n {desc}\n Write a valid critique of this person's style. Highlight the positive if any. Highlight the negative and suggest improvements they can make. Be critical. DO NOT make additions to their outfit. Be specific using ONLY the given description. Answer in 5-7 lines but finish all sentences.",
         max_tokens=100,
         top_p=1,
         frequency_penalty=0.0,
@@ -63,7 +63,7 @@ def rate():
     desc = request.args.get('desc')
     feedback = request.args.get('roast')
     expected_keys = ["originality", "cohesiveness", "flair", "execution"]
-    prompt =  f"Description: {desc}\n\n Feedback: {feedback}\n\n Given this feedback, rate the outfit on a scale of 1-10 in the following criteria: originality, cohesiveness, flair, execution. Be moderate in the scoring. Output a json."
+    prompt =  f"Description: {desc}\n\n Feedback: {feedback}\n\n Given this feedback, rate the outfit on a scale of 1-10 in the following criteria: originality, cohesiveness, flair, execution. Be critical, where 10 is very trendy, fashionable, and modern and 1 is someone who threw things together without thought. Output a json."
     return {
         "rating": get_gpt_json(prompt, expected_keys)
     }
