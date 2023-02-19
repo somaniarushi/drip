@@ -5,6 +5,12 @@ import inputBox from '../assets/input/image-input-box.svg';
 import { useNavigate } from 'react-router-dom';
 import Background from '../components/Background';
 import Header from '../components/Header';
+import FadeIn from 'react-fade-in';
+
+
+import { tsParticles } from "https://cdn.jsdelivr.net/npm/tsparticles-engine/+esm";
+import { loadFull } from "https://cdn.jsdelivr.net/npm/tsparticles/+esm";
+import { loadCardsShape } from "https://cdn.jsdelivr.net/npm/tsparticles-shape-cards/+esm";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -53,6 +59,9 @@ function App() {
   }, [image]);
 
   async function submitImage(e) {
+
+    loadParticles(configs);
+
     const img = e.target.files[0];
     setImage(img);
     setPhase(1);
@@ -112,30 +121,33 @@ function App() {
 
   return (
     <div className="flex items-center justify-center h-screen max-w-4xl mx-auto p-20">
-      <div className="flex flex-col justify-center mr-10 z-10">
-        <Header />
-        <div className="text-6xl">
-          <h1 className="header">DRIP</h1>
-          <h1 className="header-outline">
-            OR DROWN
-          </h1>
+      <FadeIn>
+        <div className="flex flex-col justify-center mr-10 z-10">
+          <Header />
+          <div className="text-6xl">
+            <h1 className="header">DRIP</h1>
+            <h1 className="header-outline">
+              OR DROWN
+            </h1>
+          </div>
+          <div className="text-1xl">
+            {phase > 0 ? (
+              <>
+                <p>Fit uploaded successfully! Hang tight.</p>
+                {phase > 1 ? <p>Almost done...</p> : <p>{loadingFlavor}</p>}
+              </>            
+            ): (
+              <p>Refine your aesthetic.<br />Curate excellence.</p>
+            )}
+          </div>
         </div>
-        <div className="text-1xl">
-          {phase > 0 ? (
-            <>
-              <p>Fit uploaded successfully! Hang tight.</p>
-              {phase > 1 ? <p>Almost done...</p> : <p>{loadingFlavor}</p>}
-            </>            
-          ): (
-            <p>Refine your aesthetic.<br />Curate excellence.</p>
-          )}
-        </div>
-      </div>
+      </FadeIn>
+
       <div className="flex items-center justify-center file-upload-container z-10">
         {imageURL ?
           (
             <div>
-              <img src={imageURL} alt="preview upload" className="w-64" />
+              <img src={imageURL} alt="preview upload" className="w-64 shine" />
             </div>
           ) :
           <Upload submitImage={submitImage} />
@@ -160,5 +172,50 @@ function Upload({submitImage}) {
     </label>
   )
 }
+
+async function loadParticles(options) {
+  await loadFull(tsParticles);
+  await loadCardsShape(tsParticles);
+
+  await tsParticles.load(options);
+}
+
+const configs = {
+  interactivity: {
+    events: {
+      onHover: {
+        enable: true,
+        mode: "repulse"
+      }
+    }
+  }, 
+  particles: {
+    number: {
+      value: 100
+    },
+    shape: {
+      type: "character",
+      options: {
+        character: {
+          value: "💧",
+        }
+      }
+    },
+    move: {
+      enable: true,
+      angle: 0,
+      speed: 9,
+      direction: "bottom",
+    },
+    size: {
+      random: {
+        enable: true,
+        maximumValue: 15,
+        minimumValue: 10
+      }
+    }
+  },
+};
+
 
 export default App;
