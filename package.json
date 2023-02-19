@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "npm run build-server",
-    "build-server": "cd api && pip3 install -r requirements.txt && python3 app.py",
+    "build-server": "cd api && pip install -r requirements.txt && python3 app.py",
     "build-client": "cd src && npm i && cd.. && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
