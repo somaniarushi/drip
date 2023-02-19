@@ -31,9 +31,17 @@ function Carousel({state}) {
         forwardBtnProps={{
           //here you can also pass className, or any other button element attributes
           style: {
-            padding: '20px 0',
+            padding: '20px',
+            fontSize: 30,
           },
-          children: <p>next 🔥</p>,
+          children: <p>▶</p>,
+        }}
+        backwardBtnProps={{
+          style: {
+            padding: '20px',
+            fontSize: 30,
+          },
+          children: <p>◀</p>,
         }}
         responsiveProps={[
           {
@@ -57,7 +65,7 @@ function Carousel({state}) {
         <div className="carousel-slide">
           <div>
             <img src={Heart} alt="heart" className="w-10 inline-block" />
-            <h3 className="header text-3xl">This is what we'd like to see...</h3>
+            <h3 className="header text-3xl">This is what we think...</h3>
           </div>
           <br />
           <p className="header gradient-text">{roast}.</p>

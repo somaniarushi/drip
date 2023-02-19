@@ -5,6 +5,7 @@ import inputBox from '../assets/input/image-input-box.svg';
 import { useNavigate } from 'react-router-dom';
 import Background from '../components/Background';
 import Header from '../components/Header';
+import { FadeIn } from 'react-slide-fade-in';
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -113,23 +114,25 @@ function App() {
   return (
     <div className="flex items-center justify-center h-screen max-w-4xl mx-auto p-20">
       <div className="flex flex-col justify-center mr-10 z-10">
-        <Header />
-        <div className="text-6xl">
-          <h1 className="header">DRIP</h1>
-          <h1 className="header-outline">
-            OR DROWN
-          </h1>
-        </div>
-        <div className="text-1xl">
-          {phase > 0 ? (
-            <>
-              <p>Fit uploaded successfully! Hang tight.</p>
-              {phase > 1 ? <p>Almost done...</p> : <p>{loadingFlavor}</p>}
-            </>            
-          ): (
-            <p>Refine your aesthetic.<br />Curate excellence.</p>
-          )}
-        </div>
+        <FadeIn from="bottom" positionOffset={50} duration={300}>
+          <Header />
+          <div className="text-6xl">
+            <h1 className="header">DRIP</h1>
+            <h1 className="header-outline">
+              OR DROWN
+            </h1>
+          </div>
+          <div className="text-1xl">
+            {phase > 0 ? (
+              <>
+                <p>Fit uploaded successfully! Hang tight.</p>
+                {phase > 1 ? <p>Almost done...</p> : <p>{loadingFlavor}</p>}
+              </>            
+            ): (
+              <p>Refine your aesthetic.<br />Curate excellence.</p>
+            )}
+          </div>
+        </FadeIn>
       </div>
       <div className="flex items-center justify-center file-upload-container z-10">
         {imageURL ?
