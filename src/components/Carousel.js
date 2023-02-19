@@ -17,7 +17,6 @@ import tech_bro from '../assets/gifs/tech bro.gif';
 
 function Carousel({state}) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  console.log({state})
 
   const gifs = {
     "avant-garde": avant_garde,
@@ -101,7 +100,7 @@ function Carousel({state}) {
         </div>
         <div className="carousel-slide">
           <div>
-            <h3 className="header text-3xl">Your drip aura is...</h3>
+            <h3 className="header text-3xl text-center mt-3">Your drip aura is...</h3>
           </div>
           <div className="aura-wrapper">
             <div className="aura-gradient-card">

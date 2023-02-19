@@ -78,8 +78,8 @@ function Settings() {
             <option value="medium">Medium roast (to improve your fit)</option>
             <option value="dark">Dark roast (to feel the pain)</option>
           </select>
-          <button onClick={submitRoastType} className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 mt-10 rounded header" disabled={isLoading}>
-            {isLoading ? "LOADING..." : "SUBMIT"}
+          <button onClick={submitRoastType} className="gradient font-bold py-2 px-4 mt-10 rounded text-black" disabled={isLoading}>
+            {isLoading ? "LOADING..." : "SUBMIT FOR ANALYSIS"}
           </button>
         </FadeIn>
 
