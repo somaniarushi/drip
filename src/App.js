@@ -18,6 +18,7 @@ function App() {
   const [desc, setDesc] = useState("");
   const [descUnclean, setDescUnclean] = useState("");
   const [roast, setRoast] = useState("");
+  const [rating, setRating] = useState({});
 
   useEffect(() => {
     if (image == null) return;
@@ -41,6 +42,15 @@ function App() {
     console.log("desc is ", desc);
     const roast = await getRoast(desc);
     console.log(roast);
+    const rating = await getRating(desc, roast);
+    console.log(rating);
+  }
+
+  async function getRating(desc, roast) {
+    const res = await axios.get(`${FLASK_APP}/rating?desc=${desc}&roast=${roast}`);
+    console.log("Rating", res.data);
+    setRating(res.data.rating);
+    return res.data.rating;
   }
 
   async function getDesc(imageURL) {
@@ -73,6 +83,7 @@ function App() {
         <div className="p-4">Desc Uncleaned: {descUnclean}</div>
         <div className="p-4">Desc: {desc}</div>
         <div className="p-4">Roast: {roast}</div>
+        <div className="p-4">Rating: {JSON.stringify(rating)}</div>
       </div>
     </div>
   );

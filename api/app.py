@@ -1,8 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request
 from flask_cors import CORS
 from VisionTransformer import *
+from multiprocessing import Pool
 
 import os
+import json
 import openai
 
 # TODO: Input key here
@@ -37,6 +39,30 @@ def roast():
 
     return {
         "critique": res.choices[0].text
+    }
+
+@api.route('/rating')
+def rate():
+    desc = request.args.get('desc')
+    feedback = request.args.get('roast')
+    found_json = False
+    while not found_json:
+        res = openai.Completion.create(
+            model="text-davinci-003",
+            prompt=f"Description: {desc}\n\n Feedback: {feedback}\n\n Given this feedback, rate the outfit on a scale of 1-10 in the following criteria: originality, cohesiveness, flair, execution. Be moderate in the scoring. Output a json.",
+            max_tokens=100,
+            top_p=1,
+            frequency_penalty=0.0,
+            presence_penalty=0.0
+        )
+        json_data = res.choices[0].text
+        try:
+            json.loads(json_data)
+            found_json = True
+        except:
+            pass
+    return {
+        "rating": json_data
     }
 
 @api.route('/desc')
@@ -91,15 +117,16 @@ def describe():
         if part in bottom['is']:
             bottom['complete'] = True
 
-    for part in parts:
+    def describe_part(part):
+        part_result = ""
         if not check_necessary(part):
-            continue
+            return ""
         prompt = "Is this person wearing " + part + "?"
         answer = describe_image(url, prompt)['answer']
         print(prompt, answer)
         if answer == "yes":
             set_complete(part)
-            result += "They're wearing " + part + " which is"
+            part_result += "They're wearing " + part + " which is"
             followups = ["color", "pattern", "type", "material"]
             adjectives = []
             for followup in followups:
@@ -107,7 +134,12 @@ def describe():
                 answer = describe_image(url, prompt)['answer']
                 if answer not in adjectives:
                     adjectives.append(answer)
-            result += " " + ", ".join(adjectives) + ". "
+            part_result += " " + ", ".join(adjectives) + ". "
+        return part_result
+
+    for part in parts:
+        part_description = describe_part(part)
+        result += part_description
 
     # Description clean-up
     desc_clean = openai.Completion.create(
