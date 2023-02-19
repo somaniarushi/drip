@@ -39,7 +39,9 @@
 }
 
 .file-upload {
-  border: 1px solid #39383C;
+  border: 2px solid #63616b;
+  border-style: dashed;
+  border-radius: 10px;
 }
 
 .file-upload-container {

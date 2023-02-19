@@ -154,7 +154,7 @@ function App() {
 
 function Upload({submitImage}) {
   return (
-    <label className="flex flex-col items-center justify-center w-full border-2 file-upload border-dashed rounded-lg cursor-pointer bg-transparent hover:opacity-50 p-5">
+    <label className="flex flex-col items-center justify-center w-full file-upload cursor-pointer bg-transparent hover:opacity-50 p-5">
       <div className="flex flex-col items-center justify-center pt-5 pb-6">
         <img src={inputBox} alt="input box" className="w-full" />
         <p className="mb-2 text-sm color-white text-center">
