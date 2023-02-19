@@ -7,6 +7,11 @@ import Background from '../components/Background';
 import Header from '../components/Header';
 import FadeIn from 'react-fade-in';
 
+
+import { tsParticles } from "https://cdn.jsdelivr.net/npm/tsparticles-engine/+esm";
+import { loadFull } from "https://cdn.jsdelivr.net/npm/tsparticles/+esm";
+import { loadCardsShape } from "https://cdn.jsdelivr.net/npm/tsparticles-shape-cards/+esm";
+
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const config = {
@@ -54,6 +59,9 @@ function App() {
   }, [image]);
 
   async function submitImage(e) {
+
+    loadParticles(configs);
+
     const img = e.target.files[0];
     setImage(img);
     setPhase(1);
@@ -164,5 +172,50 @@ function Upload({submitImage}) {
     </label>
   )
 }
+
+async function loadParticles(options) {
+  await loadFull(tsParticles);
+  await loadCardsShape(tsParticles);
+
+  await tsParticles.load(options);
+}
+
+const configs = {
+  interactivity: {
+    events: {
+      onHover: {
+        enable: true,
+        mode: "repulse"
+      }
+    }
+  }, 
+  particles: {
+    number: {
+      value: 100
+    },
+    shape: {
+      type: "character",
+      options: {
+        character: {
+          value: "💧",
+        }
+      }
+    },
+    move: {
+      enable: true,
+      angle: 0,
+      speed: 9,
+      direction: "bottom",
+    },
+    size: {
+      random: {
+        enable: true,
+        maximumValue: 15,
+        minimumValue: 10
+      }
+    }
+  },
+};
+
 
 export default App;
