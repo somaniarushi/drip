@@ -85,8 +85,7 @@ function Carousel({state}) {
           <br />
           <p className="header gradient-text">{aura}.</p>
           <br />
-          <p>{auraRest}</p>
-          <br />
+          <p>{auraRest} We hope our comments helped you excel more in this aura!</p>
         </div>
       </ReactSimplyCarousel>
     </div>
@@ -109,7 +108,7 @@ function Ratings({ ratings }) {
       <div>
           <img src={Drops} alt="drops" className="w-10 inline-block" />
           <h3 className="header text-3xl">The Dripmeter</h3>
-          <p>On our patented Dripmeter, you've earned the following scores:</p>
+          <p>Calculated from our patented Dripmeter (tm), you've earned the following scores:</p>
       </div>
       <br />
 
