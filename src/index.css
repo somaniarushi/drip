@@ -27,7 +27,23 @@
   .bg-image {
     width: 210px;
   }
+
+  .carousel-slide {
+    width: 50vh;
+    overflow-y: scroll;
+  }
+
+  .background {
+    z-index: -10;
+  }
+
+  .gradient {
+    background: -webkit-linear-gradient(135deg, #ffadfc, #6ec6f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
+
 
 body {
   margin: 0;
@@ -36,7 +52,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #1D1D1D;
   color: white;
-  overflow-y: hidden;
 }
 
 code {
