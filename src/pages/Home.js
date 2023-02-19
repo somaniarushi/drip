@@ -58,7 +58,6 @@ function App() {
   }, [image]);
 
   async function submitImage(e) {
-
     loadParticles(configs);
 
     const img = e.target.files[0];
@@ -84,6 +83,11 @@ function App() {
     // Set phase to done
     setPhase(2);
 
+    // turn of particles
+    const particles = tsParticles.domItem(0);
+    particles.destroy();
+
+    // navigate away
     navigate('/settings', { state: { description: description, imageURL: data.location } });
   }
 
@@ -128,7 +132,7 @@ function App() {
       </div> 
       <Background />
       <p className="fixed bottom-10 left-10 text-xs color-white sm-hidden">
-        *AI is not perfect. We are not responsible for any bad fits.
+        {phase > 0 ? "LOADING..." : "*AI is not perfect. We are not responsible for any bad fits."}
       </p>
     </div>
   );
@@ -173,7 +177,7 @@ const configs = {
       options: {
         character: {
           value: "💧",
-        }
+        },
       }
     },
     move: {
@@ -185,10 +189,20 @@ const configs = {
     size: {
       random: {
         enable: true,
-        maximumValue: 15,
+        maximumValue: 20,
         minimumValue: 10
       }
-    }
+    },
+    opacity: {
+      value: { min: 0, max: 0.4 },
+      animation: {
+        count: 1,
+        enable: true,
+        speed: 0.5,
+        startValue: "min",
+        sync: false
+      }
+    },
   },
 };
 
