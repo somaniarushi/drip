@@ -3,9 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Background from '../components/Background';
 import { FadeIn } from 'react-slide-fade-in';
-import { tsParticles } from "https://cdn.jsdelivr.net/npm/tsparticles-engine/+esm";
-import { loadFull } from "https://cdn.jsdelivr.net/npm/tsparticles/+esm";
-import { loadCardsShape } from "https://cdn.jsdelivr.net/npm/tsparticles-shape-cards/+esm";
 
 const FLASK_APP = "http://127.0.0.1:5000";
 
@@ -25,7 +22,6 @@ function Settings() {
 
   async function submitRoastType(e) {
     setLoading(true);
-    loadParticles(configs);
 
     // Get info from backend
     const roast = await getRoast(description, roastLevel);
@@ -35,9 +31,6 @@ function Settings() {
     const aura = await getAura(description, roast);
     console.log(aura);
 
-    // turn off particles
-    const particles = tsParticles.domItem(0);
-    particles.destroy();
 
     // Navigate to results page
     navigate('/results', { state: { description: description, roast: roast, rating: rating, aura: aura, imageURL: imageURL } });
@@ -89,60 +82,6 @@ function Settings() {
     </div>
   );
 }
-
-async function loadParticles(options) {
-  await loadFull(tsParticles);
-  await loadCardsShape(tsParticles);
-
-  await tsParticles.load(options);
-}
-
-const configs = {
-  interactivity: {
-    events: {
-      onHover: {
-        enable: true,
-        mode: "repulse"
-      }
-    }
-  }, 
-  particles: {
-    number: {
-      value: 100
-    },
-    shape: {
-      type: "character",
-      options: {
-        character: {
-          value: "💧",
-        },
-      }
-    },
-    move: {
-      enable: true,
-      angle: 0,
-      speed: 9,
-      direction: "bottom",
-    },
-    size: {
-      random: {
-        enable: true,
-        maximumValue: 20,
-        minimumValue: 10
-      }
-    },
-    opacity: {
-      value: { min: 0, max: 0.4 },
-      animation: {
-        count: 1,
-        enable: true,
-        speed: 0.5,
-        startValue: "min",
-        sync: false
-      }
-    },
-  },
-};
 
 
 export default Settings;
