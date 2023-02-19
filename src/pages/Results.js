@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Carousel from '../components/Carousel';
 import Header from '../components/Header';
+import FadeIn from 'react-fade-in';
 
 function App() {
   const { state } = useLocation();
@@ -9,24 +10,28 @@ function App() {
   return (
     <div className="flex flex-col justify-center h-screen max-w-4xl mx-auto w-full">
       <div className="ml-5 mr-5">
-        <Header />
-        <h1 className="text-5xl text-center align-center w-full">
-          <span className="header-outline">YOUR DRIP </span>
-          <span className="header">
-          RESULTS
-          </span>
-        </h1>
-        <div className="flex flex-row justify-center items-center">
-          <div className="flex flex-col mr-10 w-full">
-            <br /><br />
-            <div className="flex justify-center">
-              <img src={state.imageURL} alt="your fit" className="w-80 bg-gray-100 shine"/>
+        <FadeIn>
+          <Header />
+          <h1 className="text-5xl text-center align-center w-full">
+            <span className="header-outline">YOUR DRIP </span>
+            <span className="header">
+            RESULTS
+            </span>
+          </h1>
+        </FadeIn>
+        <FadeIn delay={500} transitionDuration={1000}>
+          <div className="flex flex-row justify-center items-center">
+            <div className="flex flex-col mr-10 w-full">
+              <br /><br />
+              <div className="flex justify-center">
+                <img src={state.imageURL} alt="your fit" className="w-80 bg-gray-100 shine"/>
+              </div>
+            </div>
+            <div className="w-full flex flex-col justify-center items-center">
+              <Carousel state={state} />
             </div>
           </div>
-          <div className="w-full flex flex-col justify-center items-center">
-            <Carousel state={state} />
-          </div>
-        </div>
+        </FadeIn>
       </div>
     </div>
   )
