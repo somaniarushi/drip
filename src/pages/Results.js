@@ -16,12 +16,12 @@ function App() {
           RESULTS
           </span>
         </h1>
-        <div className="flex flex-row justify-center items-center">
-          <div className="flex flex-col mr-10 w-full">
-            <br /><br />
-            <div className="flex justify-center">
-              <img src={state.imageURL} alt="your fit" className="w-80 bg-gray-100 shine"/>
-            </div>
+        <p className="text-center max-w-xl mx-auto">
+          Click "next" or drag back and forth to see what our professional AI stylist thinks of your drip.
+        </p>
+        <div className="flex flex-row justify-center items-center w-full">
+          <div className="w-full flex flex-col justify-center items-center">
+            <img src={state.imageURL} alt="your fit" className="w-80 shine" />
           </div>
           <div className="w-full flex flex-col justify-center items-center">
             <Carousel state={state} />

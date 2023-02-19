@@ -21,7 +21,7 @@ function Carousel({state}) {
   const auraRest = state.aura.description.split('.').slice(1).join('.');
 
   return (
-    <div className="flex flex-col justify-content h-full w-full overflow-y-scroll">
+    <div className="flex flex-col justify-content h-full w-full items-center mt-10">
       <ReactSimplyCarousel
         activeSlideIndex={activeSlideIndex}
         onRequestChange={setActiveSlideIndex}
@@ -34,13 +34,6 @@ function Carousel({state}) {
             padding: '20px 0',
           },
           children: <p>next 🔥</p>,
-        }}
-        backwardBtnProps={{
-          //here you can also pass className, or any other button element attributes
-          style: {
-            padding: '20px 0',
-          },
-          children: <p>🔥 back</p>,
         }}
         responsiveProps={[
           {
