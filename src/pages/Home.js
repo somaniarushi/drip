@@ -83,7 +83,7 @@ function App() {
     // Set phase to done
     setPhase(2);
 
-    // turn of particles
+    // turn off particles
     const particles = tsParticles.domItem(0);
     particles.destroy();
 

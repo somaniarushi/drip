@@ -17,6 +17,7 @@ import tech_bro from '../assets/gifs/tech bro.gif';
 
 function Carousel({state}) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  console.log({state})
 
   const gifs = {
     "avant-garde": avant_garde,
