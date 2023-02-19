@@ -98,7 +98,7 @@ def describe():
         'complete': False,
     }
 
-    parts = fullbody['is'] + top['is'] + bottom['is'] + ['shoes', 'jewelry', 'hat', 'tie', 'jacket', 'belt', 'scarf']
+    parts = fullbody['is'] + top['is'] + bottom['is'] + ['shoes']
 
     def check_necessary(part):
         if fullbody['complete'] and (part in fullbody['is'] or part in top['is'] or part in bottom['is']):
@@ -136,9 +136,45 @@ def describe():
                     adjectives.append(answer)
             part_result += " " + ", ".join(adjectives) + ". "
         return part_result
+    
+    def describe_valid_part(part):
+        """
+        Describes a part in detail after determining the part is valid
+        """
+        part_result = "They're wearing " + part + " which is"
+        followups = ["color", "pattern", "type", "material"]
+        adjectives = []
+        for followup in followups:
+            prompt = "What is the " + part + "'s " + followup + "?"
+            answer = describe_image(url, prompt)['answer']
+            if answer not in adjectives:
+                adjectives.append(answer)
+        part_result += " " + ", ".join(adjectives) + ". "
+        return part_result
 
     for part in parts:
         part_description = describe_part(part)
+        result += part_description
+
+    # This wil allow any accessories that are __ % as confident as the highest accessory
+    accessory_tolerance = .6
+    
+    # Identify accessories
+    accessory_prompt = "What accessories is the person wearing?"
+    accessory_distribution = describe_image_expanded(url, accessory_prompt, 5)
+    max_prob = max(accessory_distribution)[0]
+
+    # Only parse accessories if substantial
+    if max_prob >= .1:
+        accessories = [acc[1] for acc in accessory_distribution if acc[0] >= accessory_tolerance * max_prob and acc[1] not in parts + bottom['is']]
+    else:
+        accessories = []
+    
+    print("accessories identified: ", accessories)
+
+    # Describe each accessory
+    for accessory in accessories:
+        part_description = describe_valid_part(accessory)
         result += part_description
 
     # Description clean-up
