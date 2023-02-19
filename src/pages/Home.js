@@ -84,18 +84,26 @@ function App() {
     console.log(roast);
     const rating = await getRating(description, roast);
     console.log(rating);
+    const aura = await getAura(description, roast);
+    console.log(aura);
 
     // Set phase to done
     setPhase(2);
 
     // Navigate to results page
-    navigate('/results', { state: { description: description, roast: roast, rating: rating, imageURL: uploadURL } });
+    navigate('/results', { state: { description: description, roast: roast, rating: rating, aura: aura, imageURL: uploadURL } });
   }
 
   async function getRating(description, roast) {
     const res = await axios.get(`${FLASK_APP}/rating?desc=${description}&roast=${roast}`);
     console.log("Rating", res.data);
     return res.data.rating;
+  }
+
+  async function getAura(description, roast) {
+    const res = await axios.get(`${FLASK_APP}/aura?desc=${description}&roast=${roast}`);
+    console.log("Aura", res.data);
+    return res.data;
   }
 
   async function getDesc(imageURL) {
