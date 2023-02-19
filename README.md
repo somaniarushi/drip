@@ -5,7 +5,9 @@ check out /api for python endpoints
 
 check out /src for frontend shit
 
-use tailwind!!!! pls
+# to do
+change openai key in /api oops
+make video???
 
 # getting started
 `flask run` in `/api` to start flask server

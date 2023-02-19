@@ -105,9 +105,9 @@ function Carousel({state}) {
           <div className="aura-wrapper">
             <div className="aura-gradient-card">
               <h3 className="header dark-gradient-text text-3xl">
-                {state.aura.aura.toUpperCase()}
+                {state.aura.title.toUpperCase()}
               </h3>
-              <img className="aura-gradient" src={gifs[state.aura.aura]} alt="gradient animation"/>
+              <img className="aura-gradient" src={gifs[state.aura.title]} alt="gradient animation"/>
             </div>
           </div>
           <br />
