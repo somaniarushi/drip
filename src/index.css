@@ -23,7 +23,6 @@
   .responsive-flex {
     margin-top: 30px;
     flex-wrap: wrap;
-    gap: 20px;
   }
 }
 
@@ -53,7 +52,7 @@
 }
 
 .carousel-slide {
-  width: 50vh;
+  width: 50vw;
   overflow-y: scroll;
   padding: 30px;
   padding-bottom: 100px;
@@ -70,6 +69,12 @@
 
 .gradient-text {
   background: -webkit-linear-gradient(135deg, #ffadfc, #6ec6f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark-gradient-text {
+  background: -webkit-linear-gradient(135deg, #f878f4, #1778ac);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -128,6 +133,25 @@
       );
   position: relative;
   overflow: hidden;
+}
+
+.aura-wrapper {
+  display: flex;
+  justify-content: center;
+
+
+}
+
+.aura-gradient {
+  height: 200px;
+}
+
+.aura-gradient-card {
+  margin-top: 15px;
+  text-align: center;
+  background-color: white;
+  border: 2px solid white;
+  width: 200px;
 }
 
 /* width */

@@ -3,10 +3,33 @@ import ReactSimplyCarousel from 'react-simply-carousel';
 import Heart from '../assets/icons/heart.png';
 import Lightbulb from '../assets/icons/lightbulb.png';
 import Drops from '../assets/icons/drops.png';
-import '../index.css'
+import '../index.css';
+import avant_garde from '../assets/gifs/avant-garde.gif';
+import artsy from '../assets/gifs/artsy.gif';
+import basic from '../assets/gifs/basic.gif';
+import cottagecore from '../assets/gifs/cottagecore.gif';
+import dapper from '../assets/gifs/dapper.gif';
+import diva from '../assets/gifs/diva.gif';
+import emo from '../assets/gifs/emo.gif';
+import fashionista from '../assets/gifs/fashionista.gif';
+import lumberjack from '../assets/gifs/lumberjack.gif';
+import tech_bro from '../assets/gifs/tech bro.gif';
 
 function Carousel({state}) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+
+  const gifs = {
+    "avant-garde": avant_garde,
+    "artsy": artsy,
+    "basic": basic,
+    "cottagecore": cottagecore,
+    "dapper": dapper,
+    "diva": diva,
+    "emo": emo,
+    "fashionista": fashionista,
+    "lumberjack": lumberjack,
+    "tech bro": tech_bro
+  }
 
   // get first sentence of roast
   const roast = state.roast.split('.')[0];
@@ -60,7 +83,7 @@ function Carousel({state}) {
         <div className="carousel-slide">
           <div>
             <img src={Heart} alt="heart" className="w-10 inline-block" />
-            <h3 className="header text-3xl">This is what we think...</h3>
+            <h3 className="header text-3xl">In our honest opinion ...</h3>
           </div>
           <br />
           <p className="header gradient-text">{roast}.</p>
@@ -70,7 +93,7 @@ function Carousel({state}) {
         <div className="carousel-slide">
           <div>
             <img src={Lightbulb} alt="lightbulb" className="w-10 inline-block" />
-            <h3 className="header text-3xl">This is what we see from you...</h3>
+            <h3 className="header text-3xl">Your Full FashionID 👤</h3>
           </div>
           <br />
           <p>{state.description}</p>
@@ -78,9 +101,14 @@ function Carousel({state}) {
         <div className="carousel-slide">
           <div>
             <h3 className="header text-3xl">Your drip aura is...</h3>
-            <h3 className="header gradient-text text-3xl">
-              {state.aura.title.toUpperCase()}
-            </h3>
+          </div>
+          <div className="aura-wrapper">
+            <div className="aura-gradient-card">
+              <h3 className="header dark-gradient-text text-3xl">
+                {state.aura.title.toUpperCase()}
+              </h3>
+              <img className="aura-gradient" src={gifs[state.aura.title]} alt="gradient animation"/>
+            </div>
           </div>
           <br />
           <p className="header gradient-text">{aura}.</p>
@@ -107,8 +135,8 @@ function Ratings({ ratings }) {
     <div>
       <div>
           <img src={Drops} alt="drops" className="w-10 inline-block" />
-          <h3 className="header text-3xl">The Dripmeter</h3>
-          <p>Calculated from our patented Dripmeter (tm), you've earned the following scores:</p>
+          <h3 className="header text-3xl">The Dripmeter™</h3>
+          <p>On our patented Dripmeter™, you've earned the following scores:</p>
       </div>
       <br />
 
@@ -134,7 +162,7 @@ function Ratings({ ratings }) {
       <div className="flex flex-row justify-center">
         <div className="meter" style={{marginBottom: '10px', marginRight: "30px"}}>
             <span style={{width: ratings['flair'] + "0%",
-                          background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
+                          background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
             }}></span>
         </div>
         <p>{ratings['flair'] + "0%"}</p>
@@ -144,7 +172,7 @@ function Ratings({ ratings }) {
       <div className="flex flex-row justify-center">
         <div className="meter" style={{marginBottom: '10px', marginRight: "30px"}}>
             <span style={{width: ratings['cohesiveness'] + "0%",
-                          background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
+                          background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
           }}></span>
         </div>
         <p>{ratings['cohesiveness'] + "0%"}</p>
