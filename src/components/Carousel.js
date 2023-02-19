@@ -58,7 +58,7 @@ function Carousel({state}) {
             <h3 className="header text-3xl">Feedback</h3>
           </div>
           <br />
-          <p className="header gradient">{roast}.</p>
+          <p className="header gradient-text">{roast}.</p>
           <br />
           <p>{roastRest}</p>
         </div>
