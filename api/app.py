@@ -79,7 +79,7 @@ def aura():
             "title": "diva",
             "description": "You have a glamorous, bold, and eye-catching aura with an emphasis on making a statement and looking fabulous. It is a mix of classic cuts and bright, daring colors with bold accessories for a dramatic and unforgettable look.",
         },
-        "casual, clean, minimal": {
+        "casual, basic, minimal": {
             "title": "basic",
             "description": "You have an aura that focuses on clean, timeless pieces in neutral colors. It features classic silhouettes and minimal accessories for a minimalistic, effortless look.",
         },
@@ -103,13 +103,9 @@ def aura():
             "title": "cottagecore",
             "description": "Your aura celebrates the beauty and comfort of rural living, with a focus on soft, comfortable fabrics, floral prints, and natural colors. It emphasizes natural materials, homespun touches, and a peaceful and relaxed atmosphere.",
         },
-        "dark, edgy": {
+        "dark, edgy, black": {
             "title": "emo",
             "description": "You have an edgy, dark aura that features dark colors, dramatic silhouettes, and bold accessories. It is a unique and unconventional look that is perfect for those looking to make a statement.",
-        },
-        "sporty, athletic": {
-            "title": "jock",
-            "description": "You have a sporty aura that features athletic pieces with a focus on comfort and functionality. It is a versatile look that is perfect for a day at the gym or a night out with friends.",
         },
         "plaid, outdoors": {
             "title": "lumberjack",
