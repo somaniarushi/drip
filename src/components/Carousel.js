@@ -88,38 +88,58 @@ function Ratings({ ratings }) {
   const avgPercent = roundedAvg * 10;
   return (
     <div>
-      <h1>Ratings</h1>
-      <div className="meter" style={{height: "20px", marginBottom: '30px'}}>
-          <span style={{width: avgPercent + "%"}}></span>
+      <div>
+          <img src={Heart} alt="heart" className="w-10 inline-block" />
+          <h3 className="header text-3xl">Ratings</h3>
+        </div>
+        <br />
+      <div className="flex flex-row justify-center">
+        <div className="meter" style={{height: "20px", marginBottom: '30px', marginRight: "30px"}}>
+            <span style={{width: avgPercent + "%"}}></span>
+        </div>
+        <p>{avgPercent + "%"}</p>
       </div>
+
       <p>Originality</p>
-      <div className="meter">
-          <span style={{width: ratings['originality'] + "0%",
-                          background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
-        }}></span>
+      <div className="flex flex-row justify-center">
+        <div className="meter" style={{marginBottom: '30px', marginRight: "30px"}}>
+            <span style={{width: ratings['originality'] + "0%",
+                            background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
+          }}></span>
+        </div>
+        <p>{ratings['originality'] + "0%"}</p>
       </div>
 
       <p>Flair</p>
-      <div className="meter">
-          <span style={{width: ratings['flair'] + "0%",
-                        background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
-          }}></span>
+      <div className="flex flex-row justify-center">
+        <div className="meter" style={{marginBottom: '30px', marginRight: "30px"}}>
+            <span style={{width: ratings['flair'] + "0%",
+                          background: "linear-gradient(175deg, rgb(244, 104, 239), rgb(255, 255, 255))"
+            }}></span>
+        </div>
+        <p>{ratings['flair'] + "0%"}</p>
       </div>
 
       <p>Cohesiveness</p>
-      <div className="meter">
-          <span style={{width: ratings['cohesiveness'] + "0%",
-                        background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
-        }}></span>
+      <div className="flex flex-row justify-center">
+        <div className="meter" style={{marginBottom: '30px', marginRight: "30px"}}>
+            <span style={{width: ratings['cohesiveness'] + "0%",
+                          background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
+          }}></span>
+        </div>
+        <p>{ratings['cohesiveness'] + "0%"}</p>
       </div>
 
       <p>Execution</p>
-      <div className="meter">
-          <span style={{width: ratings['execution'] + "0%",
-                        background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
-        }}></span>
+      <div className="flex flex-row justify-center">
+        <div className="meter" style={{marginBottom: '30px', marginRight: "30px"}}>
+            <span style={{width: ratings['execution'] + "0%",
+                          background: "linear-gradient(175deg, rgb(248, 158, 109), rgb(249, 163, 246))"
+          }}></span>
+        </div>
+        <p>{ratings['execution'] + "0%"}</p>
+        </div>
       </div>
-    </div>
   )
 }
 
