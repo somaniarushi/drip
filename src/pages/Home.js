@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { uploadFile } from "react-s3";
 import inputBox from '../assets/input/image-input-box.svg';
-import person1 from '../assets/people/person-1.png';
-import person2 from '../assets/people/person-2.png';
-import person3 from '../assets/people/person-3.png';
-import person4 from '../assets/people/person-4.png';
 import { useNavigate } from 'react-router-dom';
+import Background from '../components/Background';
+import Header from '../components/Header';
+
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const config = {
@@ -68,6 +67,7 @@ function App() {
     // Upload image to S3
     const data = await uploadFile(img, config);
     console.log(data);
+    const uploadURL = data.location;
 
     // Get description & info from backend
     const description = await getDesc(data.location);
@@ -81,7 +81,7 @@ function App() {
     setPhase(2);
 
     // Navigate to results page
-    navigate('/results', { state: { description: description, roast: roast, rating: rating } });
+    navigate('/results', { state: { description: description, roast: roast, rating: rating, imageURL: uploadURL } });
   }
 
   async function getRating(description, roast) {
@@ -105,6 +105,7 @@ function App() {
   return (
     <div className="flex items-center justify-center h-screen max-w-4xl mx-auto p-20">
       <div className="flex flex-col justify-center mr-10 z-10">
+        <Header />
         <div className="text-6xl">
           <h1 className="header">DRIP</h1>
           <h1 className="header-outline">
@@ -114,7 +115,7 @@ function App() {
         <div className="text-1xl">
           {phase > 0 ? (
             <>
-              <p>Fit uploaded successfully!</p>
+              <p>Fit uploaded successfully! Hang tight.</p>
               {phase > 1 ? <p>Almost done...</p> : <p>{loadingFlavor}</p>}
             </>            
           ): (
@@ -126,19 +127,13 @@ function App() {
         {imageURL ?
           (
             <div>
-              <img src={imageURL} alt="preview upload" className="w-64 h-64" />
+              <img src={imageURL} alt="preview upload" className="w-64" />
             </div>
           ) :
           <Upload submitImage={submitImage} />
         }
       </div> 
-      {/* bg images */}
-      <div className="z-0">
-        <img src={person2} alt="decoration" className="absolute opacity-50 bg-image" style={{left: "35%", bottom: "-8%"}} />
-        <img src={person1} alt="decoration" className="absolute opacity-20 bg-image" style={{left: "45%", bottom: "10%"}} />
-        <img src={person3} alt="decoration" className="absolute opacity-30 bg-image" style={{left: "30%", top: "-10%"}} />
-        <img src={person4} alt="decoration" className="absolute opacity-40 bg-image" style={{left: "-5%", bottom: "10%"}} />
-      </div>
+      <Background />
 
     </div>
   );
