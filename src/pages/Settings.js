@@ -59,19 +59,22 @@ function Settings() {
         <FadeIn from="bottom" positionOffset={50} duration={500}>
           <img src={imageURL} alt="preview upload" className="w-1/2 mx-auto object-cover h-80 p-10 rounded-lg" />
         </FadeIn>
-        <p>Almost there! One last step.</p>
-        <h1 className="header text-2xl font-bold text-gray-900 dark:text-white">
-          What kind of roast would you like?
-        </h1>
-        <label htmlFor="underline_select" className="sr-only">Underline select</label>
-        <select id="underline_select" className="block py-2.5 px-0 w-full text-sm text-gray-100 bg-transparent border-0 border-b-2 border-gray-100 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer text-lg" onChange={handleRoastChange}>
-          <option defaultValue value="light">Light roast (to hype you up)</option>
-          <option value="medium">Medium roast (to improve your fit)</option>
-          <option value="dark">Dark roast (to feel the pain)</option>
-        </select>
-        <button onClick={submitRoastType} className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 mt-10 rounded header" disabled={isLoading}>
-          {isLoading ? "LOADING..." : "SUBMIT"}
-        </button>
+        <FadeIn from="bottom" positionOffset={100} duration={600}>
+          <p>Almost there! One last step.</p>
+          <h1 className="header text-2xl font-bold text-gray-900 dark:text-white">
+            What kind of roast would you like?
+          </h1>
+          <label htmlFor="underline_select" className="sr-only">Underline select</label>
+          <select id="underline_select" className="block py-2.5 px-0 w-full text-md text-gray-100 bg-transparent border-0 border-b-2 border-gray-100 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer text-lg" onChange={handleRoastChange}>
+            <option defaultValue value="light">Light roast (to hype you up)</option>
+            <option value="medium">Medium roast (to improve your fit)</option>
+            <option value="dark">Dark roast (to feel the pain)</option>
+          </select>
+          <button onClick={submitRoastType} className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 mt-10 rounded header" disabled={isLoading}>
+            {isLoading ? "LOADING..." : "SUBMIT"}
+          </button>
+        </FadeIn>
+
       </div>
       <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-0"></div>
       <Background />
