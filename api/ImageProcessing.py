@@ -74,20 +74,25 @@ def isolate_foreground(url):
 
 
 #testing below
-"""
-print('wassup')
-plaid_url = "https://as2.ftcdn.net/v2/jpg/02/97/30/87/1000_F_297308730_IlO1Ip9t10AesX1wnj4HZhnZJwJYgt0o.jpg?"
-black_url = "http://cdn.shopify.com/s/files/1/0565/7352/6189/products/2_e66a209f-cb60-478a-9be8-36fd559b5cd7_800x.jpg?v=1634212997"
 
-#plaid_img = Image.open(requests.get(plaid_url, stream=True).raw)
-#black_img = Image.open(requests.get(black_url, stream=True).raw)
 
-#multiply_outfits = multiply(plaid_img, black_img)
-#multiply_outfits.show()
+def main():
+    print('wassup')
+    plaid_url = "https://as2.ftcdn.net/v2/jpg/02/97/30/87/1000_F_297308730_IlO1Ip9t10AesX1wnj4HZhnZJwJYgt0o.jpg?"
+    black_url = "http://cdn.shopify.com/s/files/1/0565/7352/6189/products/2_e66a209f-cb60-478a-9be8-36fd559b5cd7_800x.jpg?v=1634212997"
+    skirt_url = "https://cdn.repeller.com/wp-content/uploads/2018/01/Amelia-30-Days-of-Outfit-Mirror-Selfies-Man-Repeller-20-954x1272.jpg"
 
-#generate_depth(plaid_url)
-#multiply(url1,url2)
-isolated_image = isolate_foreground(black_url)
-isolated_image.show()
-print('done')
-"""
+    #plaid_img = Image.open(requests.get(plaid_url, stream=True).raw)
+    #black_img = Image.open(requests.get(black_url, stream=True).raw)
+
+    #multiply_outfits = multiply(plaid_img, black_img)
+    #multiply_outfits.show()
+
+    #generate_depth(plaid_url)
+    #multiply(url1,url2)
+    isolated_image = isolate_foreground(skirt_url)
+    isolated_image.show()
+    print('done')
+
+if __name__ == "__main__":
+    main()
