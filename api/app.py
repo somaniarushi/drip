@@ -92,7 +92,7 @@ def describe():
     def describe_part(part):
         part_result = ""
         if not check_necessary(part):
-            return
+            return ""
         prompt = "Is this person wearing " + part + "?"
         answer = describe_image(url, prompt)['answer']
         print(prompt, answer)
