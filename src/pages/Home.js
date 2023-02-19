@@ -123,7 +123,7 @@ function App() {
       </div> 
       <Background />
       <p className="fixed bottom-10 left-10 text-xs color-white sm-hidden">
-        {phase > 0 ? "LOADING..." : "*AI is not perfect. We are not responsible for any bad fits."}
+        {phase > 0 ? "LOADING... (NOTE: This may take several minutes)" : "*AI is not perfect. We are not responsible for any bad fits."}
       </p>
     </div>
   );
