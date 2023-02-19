@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ReactSimplyCarousel from 'react-simply-carousel';
 import Heart from '../assets/icons/heart.png';
+import Lightbulb from '../assets/icons/lightbulb.png';
 import '../index.css'
 
 function Carousel({state}) {
@@ -45,13 +46,14 @@ function Carousel({state}) {
         centerMode={true}
         easing="ease-in-out"
       >
-        {/* here you can also pass any other element attributes. Also, you can use your custom components as slides
         <div className="carousel-slide">
-          <h3 className="header text-3xl">This is what we see...</h3>
+          <div>
+            <img src={Lightbulb} alt="lightbulb" className="w-10 inline-block" />
+            <h3 className="header text-3xl">This is what we see from you...</h3>
+          </div>
           <br />
           <p>{state.description}</p>
         </div>
-        */}
         <div className="carousel-slide">
           <div>
             <img src={Heart} alt="heart" className="w-10 inline-block" />
