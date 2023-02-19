@@ -4,7 +4,7 @@ import axios from 'axios';
 import Background from '../components/Background';
 import { FadeIn } from 'react-slide-fade-in';
 
-const FLASK_APP = "http://127.0.0.1:5000";
+const FLASK_APP = "https://amks.pythonanywhere.com"
 
 function Settings() {
   const navigate = useNavigate();
