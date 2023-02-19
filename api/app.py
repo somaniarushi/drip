@@ -71,25 +71,66 @@ def rate():
 @api.route('/aura')
 def aura():
     auras = {
-        "tech bro" : "You have a modern, ultra-cool aura that combines streetwear with high-tech gadgets and accessories. It's a blend of comfort, style, and tech that appeals to the modern, tech-savvy man.",
-        "diva" : "You have a glamorous, bold, and eye-catching aura with an emphasis on making a statement and looking fabulous. It is a mix of classic cuts and bright, daring colors with bold accessories for a dramatic and unforgettable look.",
-        "basic" : "You have an aura that focuses on clean, timeless pieces in neutral colors. It features classic silhouettes and minimal accessories for a minimalistic, effortless look.",
-        "dapper" : "You have a polished aura that emphasizes tailored pieces with a modern twist, such as slim-fitting suits, crisp dress shirts, and polished accessories. It's the perfect look for a timeless, sophisticated style.",
-        "artsy" : "Your aura is characterized by bold statement pieces and creative, unique designs that are sure to make a statement. It is often experimental and unconventional, making it perfect for those looking to stand out from the crowd.",
-        "avant-garde" : "You have an edgy, trendsetting aura that incorporates innovative, artistic elements to create forward-thinking looks. It often plays with traditional silhouettes and materials to create unexpected and unique designs.",
-        "fashionista" : "Your have a fashionable and stylish aura, characterized by bold and trendy outfits that make a statement. It celebrates individual style and encourages experimentation with fashion trends.",
-        "cottagecore" : "Your aura celebrates the beauty and comfort of rural living, with a focus on soft, comfortable fabrics, floral prints, and natural colors. It emphasizes natural materials, homespun touches, and a peaceful and relaxed atmosphere.",
-        "emo" : "You have an edgy, dark aura, characterized by black clothing, studs, and punk or metal-inspired accessories. It is inspired by the 1990s emo music scene and typically incorporates a mix of vintage and modern pieces.",
-        "lumberjack" : "Your aura is inspired by traditional outdoor workwear, featuring plaid shirts, heavy boots, and other warm and durable items. It is a rugged, comfortable look that is perfect for a chilly day spent in the great outdoors."
+        "practical, comfortable": {
+            "title": "tech bro",
+            "description": "You have a tech bro aura, characterized by a mix of casual and formal pieces with a focus on comfort and practicality. It is a versatile look that is perfect for a day at the office or a night out with friends.",
+        },
+        "glamorous, eye-catching, chic": {
+            "title": "diva",
+            "description": "You have a glamorous, bold, and eye-catching aura with an emphasis on making a statement and looking fabulous. It is a mix of classic cuts and bright, daring colors with bold accessories for a dramatic and unforgettable look.",
+        },
+        "casual, clean, minimal": {
+            "title": "basic",
+            "description": "You have an aura that focuses on clean, timeless pieces in neutral colors. It features classic silhouettes and minimal accessories for a minimalistic, effortless look.",
+        },
+        "classy, polished": {
+            "title": "dapper",
+            "description": "You have a polished aura that emphasizes tailored pieces with a modern twist, such as slim-fitting suits, crisp dress shirts, and polished accessories. It's the perfect look for a timeless, sophisticated style.",
+        },
+        "creative, unique": {
+            "title": "artsy",
+            "description": "Your aura is characterized by bold statement pieces and creative, unique designs that are sure to make a statement. It is often experimental and unconventional, making it perfect for those looking to stand out from the crowd.",
+        },
+        "experimental, artistic": {
+            "title": "avant-garde",
+            "description": "You have an edgy, trendsetting aura that incorporates innovative, artistic elements to create forward-thinking looks. It often plays with traditional silhouettes and materials to create unexpected and unique designs.",
+        },
+        "trendy, bold": {
+            "title": "fashionista",
+            "description": "Your have a fashionable and stylish aura, characterized by bold and trendy outfits that make a statement. It celebrates individual style and encourages experimentation with fashion trends.",
+        },
+        "floral, natural": {
+            "title": "cottagecore",
+            "description": "Your aura celebrates the beauty and comfort of rural living, with a focus on soft, comfortable fabrics, floral prints, and natural colors. It emphasizes natural materials, homespun touches, and a peaceful and relaxed atmosphere.",
+        },
+        "dark, edgy": {
+            "title": "emo",
+            "description": "You have an edgy, dark aura that features dark colors, dramatic silhouettes, and bold accessories. It is a unique and unconventional look that is perfect for those looking to make a statement.",
+        },
+        "sporty, athletic": {
+            "title": "jock",
+            "description": "You have a sporty aura that features athletic pieces with a focus on comfort and functionality. It is a versatile look that is perfect for a day at the gym or a night out with friends.",
+        },
+        "plaid, outdoors": {
+            "title": "lumberjack",
+            "description": "Your aura is inspired by traditional outdoor workwear, featuring plaid shirts, heavy boots, and other warm and durable items. It is a rugged, comfortable look that is perfect for a chilly day spent in the great outdoors."
+        },
     }
+
     desc = request.args.get('desc')
-    feedback = request.args.get('roast')
     expected_keys = ["aura"]
-    aura_string = ", ".join(auras.keys())
-    prompt = f"Description: {desc}\n\n Feedback: {feedback}\n\n Given this description and feedback, pick a single one of the following qualities to describe the outfit: {aura_string}. Output a json, the key should be \"{expected_keys[0]}\"."
+    aura_string = ";".join(auras.keys())
+
+    prompt = f"Description: {desc}\n\n Given this description, pick one out of the following quality groups (separated by a semicolon ;) to describe the outfit's aesthetics. It MUST be one of the following: {aura_string}. Output a json, the key should be \"{expected_keys[0]}\"."
+
     json_data = get_gpt_json(prompt, expected_keys)
-    json_data["description"] = auras[json_data["aura"]]
-    return json_data
+    print(json_data)
+
+    # check if the aura is valid -- default tech bro
+    if json_data["aura"] not in auras:
+        json_data["aura"] = "practical, comfortable"
+
+    return auras[json_data["aura"]]
 
 @api.route('/desc')
 def describe():

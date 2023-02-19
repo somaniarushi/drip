@@ -79,7 +79,7 @@ function Carousel({state}) {
           <div>
             <h3 className="header text-3xl">Your drip aura is...</h3>
             <h3 className="header gradient-text text-3xl">
-              {state.aura.aura.toUpperCase()}
+              {state.aura.title.toUpperCase()}
             </h3>
           </div>
           <br />
