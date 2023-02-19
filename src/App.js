@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { uploadFile } from "react-s3";
 import inputBox from './assets/input/image-input-box.svg';
@@ -19,29 +19,46 @@ const FLASK_APP = "http://127.0.0.1:5000";
 
 function App() {
   const [image, setImage] = useState(null);
+  const [imageURL, setImageURL] = useState("");
   const [desc, setDesc] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const [descUnclean, setDescUnclean] = useState("");
   const [roast, setRoast] = useState("");
   const [rating, setRating] = useState({});
 
-  function onImageChange(e) {
-    setImage(e.target.files[0]);
-  }
+  useEffect(() => {
+    if (image == null) return;
 
-  async function uploadImage() {
-    if (image == null) {
-      console.log("No image!");
+    const url = URL.createObjectURL(image);
+    setImageURL(url);
+  }, [image]);
+
+  async function submitImage(e) {
+    const img = e.target.files[0];
+    setImage(img);
+    setLoading(true);
+    
+    if (img == null) {
+      console.log("Image is null");
       return;
     }
-    const data = await uploadFile(image, config);
+
+    console.log(img);
+
+    // Upload image to S3
+    const data = await uploadFile(img, config);
     console.log(data);
 
+    // Get description from backend
     const desc = await getDesc(data.location);
     console.log("desc is ", desc);
     const roast = await getRoast(desc);
     console.log(roast);
     const rating = await getRating(desc, roast);
     console.log(rating);
+
+    setLoading(false);
   }
 
   async function getRating(desc, roast) {
@@ -68,24 +85,6 @@ function App() {
     .catch(err => console.error(err));
   }
 
-  /*
-    // Change flex direction in Tailwind
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="p-4">
-        {imageURL ? <img src={imageURL} alt="preview upload" className="w-64 h-64" /> : <input type="file" onChange={onImageChange} />}
-      </div>
-      <div className="p-4">
-        <button onClick={uploadImage} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Upload Image
-        </button>
-        <div className="p-4">Desc Uncleaned: {descUnclean}</div>
-        <div className="p-4">Desc: {desc}</div>
-        <div className="p-4">Roast: {roast}</div>
-        <div className="p-4">Rating: {JSON.stringify(rating)}</div>
-      </div>
-    </div>
-    */
-
   return (
     <div className="flex items-center justify-center h-screen max-w-4xl mx-auto p-20">
       <div className="flex flex-col justify-center mr-10 z-10">
@@ -99,25 +98,41 @@ function App() {
           <p>Refine your aesthetic.<br />Curate excellence.</p>
         </div>
       </div>
-      <div class="flex items-center justify-center file-upload-container">
-        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full border-2 file-upload border-dashed rounded-lg cursor-pointer bg-transparent hover:opacity-50 p-5">
-            <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                <img src={inputBox} alt="input box" className="w-full" />
-                <p className="mb-2 text-sm color-white text-center">
-                  <span class="font-semibold">Click to choose a picture of your fit</span> and get it analyzed by our AI.
-                </p>
+      <div className="flex items-center justify-center file-upload-container z-10">
+        {imageURL ?
+          (
+            <div>
+              <img src={imageURL} alt="preview upload" className="w-64 h-64" />
+              {loading && (<p>Loading...</p>)}
             </div>
-            <input id="dropzone-file" type="file" class="hidden" />
-        </label>
+          ) :
+          <Upload submitImage={submitImage} />
+        }
       </div> 
       {/* bg images */}
       <div className="z-0">
-        <img src={person1} alt="person 1" className="absolute bottom-12 left-13 opacity-50 bg-image" />
-        <img src={person2} alt="person 1" className="absolute bottom-12 left-10 opacity-50 bg-image" />
+        <img src={person2} alt="decoration" className="absolute opacity-50 bg-image" style={{left: "35%", bottom: "-8%"}} />
+        <img src={person1} alt="decoration" className="absolute opacity-50 bg-image" style={{left: "45%", bottom: "10%"}} />
+        <img src={person3} alt="decoration" className="absolute opacity-50 bg-image" style={{left: "30%", top: "-10%"}} />
+        <img src={person4} alt="decoration" className="absolute opacity-50 bg-image" style={{left: "-5%", bottom: "10%"}} />
       </div>
 
     </div>
   );
+}
+
+function Upload({submitImage}) {
+  return (
+    <label className="flex flex-col items-center justify-center w-full border-2 file-upload border-dashed rounded-lg cursor-pointer bg-transparent hover:opacity-50 p-5">
+      <div className="flex flex-col items-center justify-center pt-5 pb-6">
+        <img src={inputBox} alt="input box" className="w-full" />
+        <p className="mb-2 text-sm color-white text-center">
+          <span className="font-semibold">Click to choose a picture of your fit</span> and get it analyzed by our AI.
+        </p>
+      </div>
+      <input id="dropzone-file" type="file" className="hidden" onChange={submitImage} />
+    </label>
+  )
 }
 
 export default App;

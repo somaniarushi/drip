@@ -25,7 +25,7 @@
   }
 
   .bg-image {
-    width: 200px;
+    width: 210px;
   }
 }
 
@@ -36,6 +36,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #1D1D1D;
   color: white;
+  overflow-y: hidden;
 }
 
 code {
