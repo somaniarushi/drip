@@ -74,6 +74,12 @@
   -webkit-text-fill-color: transparent;
 }
 
+.dark-gradient-text {
+  background: -webkit-linear-gradient(135deg, #f878f4, #1778ac);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .logo {
   width: 80px;
   margin-top: 100px;
@@ -130,41 +136,28 @@
   overflow: hidden;
 }
 
+.aura-wrapper {
+  display: flex;
+  justify-content: center;
+
+
+}
+
+.aura-gradient {
+  height: 200px;
+}
+
+.aura-gradient-card {
+  margin-top: 15px;
+  text-align: center;
+  background-color: white;
+  border: 2px solid white;
+  width: 200px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 0px;
-  .meter > span {
-    display: block;
-    height: 100%;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    /* background-color: rgb(76, 159, 247); */
-    /* background: linear-gradient(
-      center bottom,
-      rgb(244, 104, 239) 27%,
-      rgb(88, 198, 253) 99%
-    ); */
-    background: linear-gradient(175deg,
-        rgb(244, 104, 239),
-        rgb(88, 198, 253)
-        );
-    position: relative;
-    overflow: hidden;
-  }
-
-  .aura-gradient {
-    height: 200px;
-  }
-
-  .aura-gradient-card {
-    margin-top: 15px;
-    text-align: center;
-    background-color: white;
-    border: 2px solid white;
-    width: 200px;
-  }
 }
 
 
