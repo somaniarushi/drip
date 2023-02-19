@@ -145,7 +145,7 @@ function App() {
         }
       </div> 
       <Background />
-      <p className="fixed bottom-10 left-10 text-xs color-white">
+      <p className="fixed bottom-10 left-10 text-xs color-white sm-hidden">
         *AI is not perfect. We are not responsible for any bad fits.
       </p>
     </div>
