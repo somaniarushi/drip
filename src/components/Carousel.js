@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ReactSimplyCarousel from 'react-simply-carousel';
 import Heart from '../assets/icons/heart.png';
+import '../index.css'
 
 function Carousel({state}) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -62,7 +63,7 @@ function Carousel({state}) {
           <p>{roastRest}</p>
         </div>
         <div className="carousel-slide">
-          slide 2
+          <Ratings ratings={state.rating} />
         </div>
         <div className="carousel-slide">
           slide 3
@@ -70,6 +71,33 @@ function Carousel({state}) {
       </ReactSimplyCarousel>
     </div>
   );
+}
+
+function Ratings({ ratings }) {
+  return (
+    <div>
+      <h1>Ratings</h1>
+      <p>Originality</p>
+      <div class="meter">
+          <span style={{width: ratings['originality'] + "0%"}}></span>
+      </div>
+
+      <p>Flair</p>
+      <div class="meter">
+          <span style={{width: ratings['flair'] + "0%"}}></span>
+      </div>
+
+      <p>Cohesiveness</p>
+      <div class="meter">
+          <span style={{width: ratings['cohesiveness'] + "0%"}}></span>
+      </div>
+
+      <p>Execution</p>
+      <div class="meter">
+          <span style={{width: ratings['execution'] + "0%"}}></span>
+      </div>
+    </div>
+  )
 }
 
 export default Carousel;
