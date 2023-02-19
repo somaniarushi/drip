@@ -1,14 +1,15 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
-function App(props) {
-  console.log(props);
+function App() {
+  const { state } = useLocation();
 
   return (
     <div>
       <h1>Results</h1>
-      <p>{props.location.state.description}</p>
-      <p>{props.location.state.roast}</p>
-      <p>{props.location.state.rating}</p>
+      <p>{state.description}</p>
+      <p>{state.roast}</p>
+      <p>{state.rating}</p>
     </div>
   )
 }

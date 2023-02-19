@@ -35,6 +35,8 @@ function App() {
   // 0: need image, 1: loading, 2: done
   const [phase, setPhase] = useState(0);
 
+  const navigate = useNavigate();
+
   // Rotating loading flavor text
   useEffect(() => {
     if (phase) {
@@ -47,8 +49,6 @@ function App() {
 
   useEffect(() => {
     if (image == null) return;
-
-    // route 
 
     const url = URL.createObjectURL(image);
     setImageURL(url);
@@ -82,14 +82,7 @@ function App() {
     setPhase(2);
 
     // Navigate to results page
-    this.context.router.push({
-      pathname: '/results',
-      state: {
-        description: description,
-        roast: roast,
-        rating: rating,
-      }
-    })
+    navigate('/results', { state: { description: description, roast: roast, rating: rating } });
   }
 
   async function getRating(desc, roast) {
