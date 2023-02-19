@@ -19,6 +19,7 @@ const config = {
   secretAccessKey: process.env.REACT_APP_SECRET_KEY,
   s3Url: `https://${process.env.REACT_APP_BUCKET}.s3.amazonaws.com/`
 }
+
 const FLASK_APP = "http://127.0.0.1:5000";
 const LOADING_FLAVOR = [
   "Analyzing your fit...",
@@ -34,7 +35,7 @@ function App() {
   const [imageURL, setImageURL] = useState("");
   const [loadingFlavor, setLoadingFlavor] = useState(LOADING_FLAVOR[0]);
 
-  // 0: need image, 1: loading, 2: done
+  // 0: need image, 1: loading, 2: done with description
   const [phase, setPhase] = useState(0);
 
   const navigate = useNavigate();
@@ -74,47 +75,22 @@ function App() {
     // Upload image to S3
     const data = await uploadFile(img, config);
     console.log(data);
-    const uploadURL = data.location;
+    setImageURL(data.location);
 
-    // Get description & info from backend
+    // Get description
     const description = await getDesc(data.location);
     console.log(description);
-    const roast = await getRoast(description);
-    console.log(roast);
-    const rating = await getRating(description, roast);
-    console.log(rating);
-    const aura = await getAura(description, roast);
-    console.log(aura);
 
     // Set phase to done
     setPhase(2);
 
-    // Navigate to results page
-    navigate('/results', { state: { description: description, roast: roast, rating: rating, aura: aura, imageURL: uploadURL } });
-  }
-
-  async function getRating(description, roast) {
-    const res = await axios.get(`${FLASK_APP}/rating?desc=${description}&roast=${roast}`);
-    console.log("Rating", res.data);
-    return res.data.rating;
-  }
-
-  async function getAura(description, roast) {
-    const res = await axios.get(`${FLASK_APP}/aura?desc=${description}&roast=${roast}`);
-    console.log("Aura", res.data);
-    return res.data;
+    navigate('/settings', { state: { description: description, imageURL: data.location } });
   }
 
   async function getDesc(imageURL) {
     const res = await axios.get(`${FLASK_APP}/desc?url=${imageURL}`);
     console.log("Description", res.data);
     return res.data.desc;
-  }
-
-  async function getRoast(description) {
-    const res = await axios.get(`${FLASK_APP}/roast?desc=${description}`);
-    console.log("Roast", res.data);
-    return res.data.critique;
   }
 
   return (
