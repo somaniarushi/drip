@@ -4,9 +4,11 @@ from VisionTransformer import *
 from multiprocessing import Pool
 
 import os
+import json
 import openai
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# TODO: Input key here
+openai.api_key = "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"
 
 api = Flask(__name__)
 cors = CORS(api)
@@ -22,23 +24,48 @@ def hello():
 
 @api.route('/roast')
 def roast():
-    image = request.args.get('desc')
+    desc = request.args.get('desc')
+    print("desc is " + desc)
+
     # Make a call to openAI API
     res = openai.Completion.create(
         model="text-davinci-003",
-        prompt="Write a roast of a dress in the style of Miranda Priestly from The Devil Wears Prada.",
+        prompt=f"Here is a description of someone's fit:\n {desc}\n Write a valid feedback of this person's style, highlight the positive, and suggest improvements they can make. DO NOT make additions to their outfit. Be specific using ONLY the given description. Answer in 5 lines.",
         max_tokens=100,
         top_p=1,
         frequency_penalty=0.0,
         presence_penalty=0.0
     )
 
-    # print(res)
     return {
-        "description": res.choices[0].text
+        "critique": res.choices[0].text
     }
 
-@api.route('/describe')
+@api.route('/rating')
+def rate():
+    desc = request.args.get('desc')
+    feedback = request.args.get('roast')
+    found_json = False
+    while not found_json:
+        res = openai.Completion.create(
+            model="text-davinci-003",
+            prompt=f"Description: {desc}\n\n Feedback: {feedback}\n\n Given this feedback, rate the outfit on a scale of 1-10 in the following criteria: originality, cohesiveness, flair, execution. Be moderate in the scoring. Output a json.",
+            max_tokens=100,
+            top_p=1,
+            frequency_penalty=0.0,
+            presence_penalty=0.0
+        )
+        json_data = res.choices[0].text
+        try:
+            json.loads(json_data)
+            found_json = True
+        except:
+            pass
+    return {
+        "rating": json_data
+    }
+
+@api.route('/desc')
 def describe():
     """
     Describes an image based on a given prompt.
@@ -49,8 +76,9 @@ def describe():
     #url = request.args['image']
     #prompt = request.args['prompt']
 
-    url = "https://dripdrownbucket.s3.amazonaws.com/suit.jpeg"
-    
+    url = request.args.get('url')
+    print("url is " + url)
+
     result = ""
 
     prompt = "Is this person wearing a casual or formal outfit?"
@@ -108,9 +136,22 @@ def describe():
                     adjectives.append(answer)
             part_result += " " + ", ".join(adjectives) + ". "
         return part_result
-    
+
     for part in parts:
         part_description = describe_part(part)
         result += part_description
 
-    return result
+    # Description clean-up
+    desc_clean = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=f"{result}\n Without adding additional information, rephrase this to be a comprehensive description of a person's outfit. Do not miss keywords like 'formal', colors like 'white', or descriptions like 'suit'. Write 5 lines.",
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0.0,
+        presence_penalty=0.0
+    )
+
+    return {
+        'result': result,
+        'desc': desc_clean.choices[0].text
+    }
