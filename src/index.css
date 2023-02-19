@@ -99,6 +99,18 @@
     position: relative;
     overflow: hidden;
   }
+
+  .aura-gradient {
+    height: 200px;
+  }
+
+  .aura-gradient-card {
+    margin-top: 15px;
+    text-align: center;
+    background-color: white;
+    border: 2px solid white;
+    width: 200px;
+  }
 }
 
 

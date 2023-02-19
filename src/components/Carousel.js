@@ -4,6 +4,7 @@ import Heart from '../assets/icons/heart.png';
 import Lightbulb from '../assets/icons/lightbulb.png';
 import Drops from '../assets/icons/drops.png';
 import '../index.css'
+import dapper from '../assets/gifs/dapper.gif';
 
 function Carousel({state}) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -56,7 +57,7 @@ function Carousel({state}) {
         <div className="carousel-slide">
           <div>
             <img src={Lightbulb} alt="lightbulb" className="w-10 inline-block" />
-            <h3 className="header text-3xl">This is what we see from you...</h3>
+            <h3 className="header text-3xl">Your Full FashionID 👤</h3>
           </div>
           <br />
           <p>{state.description}</p>
@@ -64,7 +65,7 @@ function Carousel({state}) {
         <div className="carousel-slide">
           <div>
             <img src={Heart} alt="heart" className="w-10 inline-block" />
-            <h3 className="header text-3xl">This is what we'd like to see...</h3>
+            <h3 className="header text-3xl">The drip votes are in ...</h3>
           </div>
           <br />
           <p className="header gradient-text">{roast}.</p>
@@ -77,9 +78,12 @@ function Carousel({state}) {
         <div className="carousel-slide">
           <div>
             <h3 className="header text-3xl">Your drip aura is...</h3>
+          </div>
+          <div className="aura-gradient-card">
             <h3 className="header gradient-text text-3xl">
               {state.aura.aura.toUpperCase()}
             </h3>
+            <img className="aura-gradient" src={dapper} alt="gradient animation"/>
           </div>
           <br />
           <p className="header gradient-text">{aura}.</p>
@@ -107,8 +111,8 @@ function Ratings({ ratings }) {
     <div>
       <div>
           <img src={Drops} alt="drops" className="w-10 inline-block" />
-          <h3 className="header text-3xl">The Dripmeter</h3>
-          <p>On our patented Dripmeter, you've earned the following scores:</p>
+          <h3 className="header text-3xl">The Dripmeter™</h3>
+          <p>On our patented Dripmeter™, you've earned the following scores:</p>
       </div>
       <br />
 
