@@ -135,7 +135,7 @@ function App() {
         {imageURL ?
           (
             <div>
-              <img src={imageURL} alt="preview upload" className="w-64" />
+              <img src={imageURL} alt="preview upload" className="w-64 shine" />
             </div>
           ) :
           <Upload submitImage={submitImage} />
