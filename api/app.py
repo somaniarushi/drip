@@ -77,43 +77,43 @@ def rate():
 @api.route('/aura')
 def aura():
     auras = {
-        "practical, comfortable": {
+        "tech bro": {
             "title": "tech bro",
             "description": "You have a tech bro aura, characterized by a mix of casual and formal pieces with a focus on comfort and practicality. It is a versatile look that is perfect for a day at the office or a night out with friends.",
         },
-        "glamorous, eye-catching, chic": {
+        "diva": {
             "title": "diva",
             "description": "You have a glamorous, bold, and eye-catching aura with an emphasis on making a statement and looking fabulous. It is a mix of classic cuts and bright, daring colors with bold accessories for a dramatic and unforgettable look.",
         },
-        "casual, basic, minimal": {
+        "basic": {
             "title": "basic",
             "description": "You have an aura that focuses on clean, timeless pieces in neutral colors. It features classic silhouettes and minimal accessories for a minimalistic, effortless look.",
         },
-        "classy, polished": {
+        "dapper": {
             "title": "dapper",
             "description": "You have a polished aura that emphasizes tailored pieces with a modern twist, such as slim-fitting suits, crisp dress shirts, and polished accessories. It's the perfect look for a timeless, sophisticated style.",
         },
-        "creative, unique": {
+        "artsy": {
             "title": "artsy",
             "description": "Your aura is characterized by bold statement pieces and creative, unique designs that are sure to make a statement. It is often experimental and unconventional, making it perfect for those looking to stand out from the crowd.",
         },
-        "experimental, artistic": {
+        "avant-garde": {
             "title": "avant-garde",
             "description": "You have an edgy, trendsetting aura that incorporates innovative, artistic elements to create forward-thinking looks. It often plays with traditional silhouettes and materials to create unexpected and unique designs.",
         },
-        "trendy, bold": {
+        "fashionista": {
             "title": "fashionista",
             "description": "Your have a fashionable and stylish aura, characterized by bold and trendy outfits that make a statement. It celebrates individual style and encourages experimentation with fashion trends.",
         },
-        "floral, natural": {
+        "cottagecore": {
             "title": "cottagecore",
             "description": "Your aura celebrates the beauty and comfort of rural living, with a focus on soft, comfortable fabrics, floral prints, and natural colors. It emphasizes natural materials, homespun touches, and a peaceful and relaxed atmosphere.",
         },
-        "dark, edgy, black": {
+        "emo": {
             "title": "emo",
             "description": "You have an edgy, dark aura that features dark colors, dramatic silhouettes, and bold accessories. It is a unique and unconventional look that is perfect for those looking to make a statement.",
         },
-        "plaid, outdoors": {
+        "lumberjack": {
             "title": "lumberjack",
             "description": "Your aura is inspired by traditional outdoor workwear, featuring plaid shirts, heavy boots, and other warm and durable items. It is a rugged, comfortable look that is perfect for a chilly day spent in the great outdoors."
         },
@@ -121,16 +121,15 @@ def aura():
 
     desc = request.args.get('desc')
     expected_keys = ["aura"]
-    aura_string = ";".join(auras.keys())
 
-    prompt = f"Description: {desc}\n\n Given this description, pick one out of the following quality groups (separated by a semicolon ;) to describe the outfit's aesthetics. It MUST be one of the following: {aura_string}. Output a json, the key should be \"{expected_keys[0]}\"."
+    prompt = f"Description: {desc}\n\n Given this description, pick one out of the following to describe the outfit's aesthetics. It must be one of the following objects in this JSON object (do not interpret the titles when choosing, only the description): {auras}. Output a JSON, the key should be \"{expected_keys[0]}\"."
 
     json_data = get_gpt_json(prompt, expected_keys)
     print(json_data)
 
     # check if the aura is valid -- default tech bro
     if json_data["aura"] not in auras:
-        json_data["aura"] = "practical, comfortable"
+        json_data["aura"] = "tech bro"
 
     return auras[json_data["aura"]]
 
