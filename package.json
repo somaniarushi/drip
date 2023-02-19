@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "concurrently \"npm run build-server\" \"npm run build-client\"",
+    "build": "npm run build-server",
     "build-server": "cd api && pip3 install -r requirements.txt && python3 app.py",
     "build-client": "cd src && npm i && cd.. && react-scripts build",
     "test": "react-scripts test",
