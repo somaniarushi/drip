@@ -7,9 +7,9 @@ function App() {
   return (
     <div>
       <h1>Results</h1>
-      <p>{state.description}</p>
-      <p>{state.roast}</p>
-      <p>{state.rating}</p>
+      <p>Description: {state.description}</p>
+      <p>Roast: {state.roast}</p>
+      <p>Rating: {state.rating}</p>
     </div>
   )
 }

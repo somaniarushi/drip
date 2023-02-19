@@ -29,7 +29,6 @@ const LOADING_FLAVOR = [
 function App() {
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState("");
-  const [desc, setDesc] = useState("");
   const [loadingFlavor, setLoadingFlavor] = useState(LOADING_FLAVOR[0]);
 
   // 0: need image, 1: loading, 2: done
@@ -72,10 +71,10 @@ function App() {
 
     // Get description & info from backend
     const description = await getDesc(data.location);
-    console.log(desc);
-    const roast = await getRoast(desc);
+    console.log(description);
+    const roast = await getRoast(description);
     console.log(roast);
-    const rating = await getRating(desc, roast);
+    const rating = await getRating(description, roast);
     console.log(rating);
 
     // Set phase to done
@@ -85,8 +84,8 @@ function App() {
     navigate('/results', { state: { description: description, roast: roast, rating: rating } });
   }
 
-  async function getRating(desc, roast) {
-    const res = await axios.get(`${FLASK_APP}/rating?desc=${desc}&roast=${roast}`);
+  async function getRating(description, roast) {
+    const res = await axios.get(`${FLASK_APP}/rating?desc=${description}&roast=${roast}`);
     console.log("Rating", res.data);
     return res.data.rating;
   }
@@ -94,16 +93,13 @@ function App() {
   async function getDesc(imageURL) {
     const res = await axios.get(`${FLASK_APP}/desc?url=${imageURL}`);
     console.log("Description", res.data);
-    setDesc(res.data.desc);
     return res.data.desc;
   }
 
-  async function getRoast() {
-    axios.get(`${FLASK_APP}/roast?desc=${desc}`)
-    .then(res => {
-      return res.data.critique;
-    })
-    .catch(err => console.error(err));
+  async function getRoast(description) {
+    const res = await axios.get(`${FLASK_APP}/roast?desc=${description}`);
+    console.log("Roast", res.data);
+    return res.data.critique;
   }
 
   return (
