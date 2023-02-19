@@ -34,14 +34,14 @@ function Carousel({state}) {
             padding: '20px',
             fontSize: 30,
           },
-          children: <p>▶</p>,
+          children: <p className="sm-hidden">▶</p>,
         }}
         backwardBtnProps={{
           style: {
             padding: '20px',
             fontSize: 30,
           },
-          children: <p>◀</p>,
+          children: <p className="sm-hidden">◀</p>,
         }}
         responsiveProps={[
           {

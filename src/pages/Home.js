@@ -112,7 +112,7 @@ function App() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen max-w-4xl mx-auto p-20">
+    <div className="responsive-flex p-20">
       <div className="flex flex-col justify-center mr-10 z-10">
         <FadeIn from="bottom" positionOffset={50} duration={300}>
           <Header />

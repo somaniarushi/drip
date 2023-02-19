@@ -4,6 +4,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
+.responsive-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+@media only screen and (max-width: 1026px) {
+  .sm-hidden {
+    display: none;
+  }
+
+  .responsive-flex {
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
 @layer base {
   .header {
     font-family: 'Archivo Black', sans-serif;

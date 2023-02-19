@@ -8,7 +8,7 @@ function App() {
   const { state } = useLocation();
 
   return (
-    <div className="flex flex-col justify-center h-screen max-w-4xl mx-auto w-full">
+    <div className="flex flex-col  h-screen max-w-4xl mx-auto w-full">
       <div className="ml-5 mr-5">
         <Header />
         <FadeIn from="bottom" positionOffset={50} duration={300}>
@@ -19,10 +19,10 @@ function App() {
             </span>
           </h1>
           <p className="text-center max-w-xl mx-auto">
-            Click "next" or drag back and forth to see what our professional AI stylist thinks of your drip.
+            Click or drag back and forth (mobile friendly) to see what our professional AI stylist thinks of your drip.
           </p>
         </FadeIn>
-        <div className="flex flex-row justify-center items-center w-full">
+        <div className="responsive-flex">
           <div className="w-1/2 flex flex-col justify-center items-center">
             <FadeIn from="bottom" positionOffset={100} duration={300} delay={300}>
               <img src={state.imageURL} alt="your fit" className="w-80 shine" />
